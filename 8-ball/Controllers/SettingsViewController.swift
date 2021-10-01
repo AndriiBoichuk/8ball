@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    let defaults = UserDefaults.standard
     
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var saveButtonView: UIView!
@@ -20,7 +21,7 @@ class SettingsViewController: UIViewController {
         
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.black,
-            .font: UIFont(name: "Rockwell", size: 25)!
+            .font: UIFont(name: K.fontName, size: 25)!
         ]
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -48,12 +49,19 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         saveButton.isEnabled = false
+        
+        if let safeAnswers = defaults.array(forKey: K.userDefaultsKey) as? [String] {
+            K.answers.append(contentsOf: safeAnswers)
+        }
     }
     
     
     @IBAction func saveTouched(_ sender: UIButton) {
+        if let answer = answerTextField.text {
+            K.answers.append(answer)
+        }
         answerTextField.text = ""
-        print("Save touched")
+        defaults.set(K.answers, forKey: K.userDefaultsKey)
     }
     
 }

@@ -86,7 +86,7 @@
                                             <constraint firstAttribute="width" constant="77" id="r0t-z2-c1l"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                        <state key="normal" title="Save"/>
+                                        <state key="normal" title="Add"/>
                                         <connections>
                                             <action selector="saveTouched:" destination="IEd-lc-oKr" eventType="touchUpInside" id="CAT-AM-4Mh"/>
                                         </connections>
