@@ -8,7 +8,9 @@
 import Foundation
 
 struct K {
-    static var answers = ["Just do it!"]
+    struct defaults {
+        static let userDefaultsKey = "hardcodedAnswers"
+        static var answers = [String]()
+    }
     static let fontName = "Rockwell"
-    static let userDefaultsKey = "hardcodedAnswers"
 }

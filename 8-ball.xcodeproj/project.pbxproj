@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B017E41270CC9CF00DA95C3 /* 8-ball.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7B017E3F270CC9CF00DA95C3 /* 8-ball.xcdatamodeld */; };
 		7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18314F27036E3C0002DC27 /* SettingsViewController.swift */; };
 		7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E95A02706D6B200C3B8DD /* Constants.swift */; };
 		7BB066A426FDAAAF008FB062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB066A326FDAAAF008FB062 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B017E40270CC9CF00DA95C3 /* 8-ball.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "8-ball.xcdatamodel"; sourceTree = "<group>"; };
 		7B18314F27036E3C0002DC27 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7B2E95A02706D6B200C3B8DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7BB066A026FDAAAF008FB062 /* 8-ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "8-ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				7B2E95A02706D6B200C3B8DD /* Constants.swift */,
+				7B017E3F270CC9CF00DA95C3 /* 8-ball.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */,
 				7BB066A826FDAAAF008FB062 /* ViewController.swift in Sources */,
 				7BB066A426FDAAAF008FB062 /* AppDelegate.swift in Sources */,
+				7B017E41270CC9CF00DA95C3 /* 8-ball.xcdatamodeld in Sources */,
 				7BB066A626FDAAAF008FB062 /* SceneDelegate.swift in Sources */,
 				7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */,
 			);
@@ -373,6 +377,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7B017E3F270CC9CF00DA95C3 /* 8-ball.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7B017E40270CC9CF00DA95C3 /* 8-ball.xcdatamodel */,
+			);
+			currentVersion = 7B017E40270CC9CF00DA95C3 /* 8-ball.xcdatamodel */;
+			path = "8-ball.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7BB0669826FDAAAF008FB062 /* Project object */;
 }
