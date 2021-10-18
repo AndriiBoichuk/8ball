@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import CoreData
 
 class SettingsViewController: UIViewController {
 
-    let defaults = UserDefaults.standard
     var itemArray = [Item]()
     let context = (UIApplication.shared.delegate! as! AppDelegate).persistentContainer.viewContext
     
@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController {
         
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.black,
-            .font: UIFont(name: K.fontName, size: 25)!
+            .font: UIFont(name: K.fontName, size: 22)!
         ]
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -41,20 +41,16 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        answerTextField.delegate = self
+        
         saveButton.isEnabled = false
         
-        if let safeAnswers = defaults.array(forKey: K.defaults.userDefaultsKey) as? [String] {
-            K.defaults.answers.append(contentsOf: safeAnswers)
-        }
+        loadItems()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-        if answerTextField.text == "" {
-            saveButton.isEnabled = false
-        } else {
-            saveButton.isEnabled = true
-        }
+        turnOffButton()
     }
     
     @IBAction func saveTouched(_ sender: UIButton) {
@@ -63,10 +59,10 @@ class SettingsViewController: UIViewController {
             newItem.hardcodedAnswer = answer
             itemArray.append(newItem)
             
+            saveButton.isEnabled = false
             saveItems()
         }
         answerTextField.text = ""
-        
     }
     
     func saveItems() {
@@ -77,4 +73,38 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error loading items \(error)")
+        }
+    }
+    
+    func turnOffButton() {
+        if answerTextField.text == "" {
+            saveButton.isEnabled = false
+        } else {
+            saveButton.isEnabled = true
+        }
+    }
+}
+
+// MARK: - TextField Delegate
+
+extension SettingsViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if let answer = answerTextField.text {
+            let newItem = Item(context: context)
+            newItem.hardcodedAnswer = answer
+            itemArray.append(newItem)
+            
+            saveItems()
+        }
+        answerTextField.text = ""
+        
+        turnOffButton()
+        return true
+    }
 }
