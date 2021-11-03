@@ -42,8 +42,6 @@ class AnswersTableViewController: UITableViewController {
         
         cell.textLabel?.text = itemArray[indexPath.row].hardcodedAnswer
         
-        let color = UIColor.gray
-        
         return cell
     }
     

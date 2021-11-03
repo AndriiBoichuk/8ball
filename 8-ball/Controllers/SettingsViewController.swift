@@ -50,7 +50,7 @@ class SettingsViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-        turnOffButton()
+        turnOffButtonPressed()
     }
     
     @IBAction func saveTouched(_ sender: UIButton) {
@@ -81,7 +81,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    func turnOffButton() {
+    func turnOffButtonPressed() {
         if answerTextField.text == "" {
             saveButton.isEnabled = false
         } else {
@@ -104,7 +104,7 @@ extension SettingsViewController: UITextFieldDelegate {
         }
         answerTextField.text = ""
         
-        turnOffButton()
+        turnOffButtonPressed()
         return true
     }
 }
