@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import CLTypingLabel
 
 class ViewController: UIViewController {
 
@@ -17,7 +18,7 @@ class ViewController: UIViewController {
     
     var answerManager = AnswerManager()
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: CLTypingLabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -25,6 +26,8 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = .clear
+        
+        titleLabel.text = "Shake the device"
         
         loadItems()
     }
