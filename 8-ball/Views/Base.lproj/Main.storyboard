@@ -26,7 +26,7 @@
                                     <constraint firstAttribute="height" constant="94" id="Qyy-za-WOF"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake the device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="uG5-KA-kcB">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake the device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="uG5-KA-kcB" customClass="CLTypingLabel" customModule="CLTypingLabel">
                                 <rect key="frame" x="36" y="416" width="342" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Gcn-Lr-SeM"/>
