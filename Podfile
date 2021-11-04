@@ -6,6 +6,6 @@ target '8-ball' do
   use_frameworks!
 
   # Pods for 8-ball
-  pod 'CLTypingLabel'
+  pod 'CLTypingLabel', '~> 0.4.0'
 
 end
