@@ -218,6 +218,11 @@
             <point key="canvasLocation" x="49.275362318840585" y="75"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="uG5-KA-kcB">
+            <size key="intrinsicContentSize" width="341.5" height="40"/>
+        </designable>
+    </designables>
     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>
