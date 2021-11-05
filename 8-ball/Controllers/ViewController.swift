@@ -12,9 +12,10 @@ import CLTypingLabel
 class ViewController: UIViewController {
 
     var itemArray = [Item]()
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var isInternetConnection: Bool = true
+    let connectionManager = ConnectionManager()
     
     var answerManager = AnswerManager()
     
@@ -41,20 +42,11 @@ class ViewController: UIViewController {
         // Check internet connection
         NotificationCenter.default
             .addObserver(self,
-                         selector: #selector(statusManager),
+                         selector: #selector(connectionManager.statusManager),
                          name: .flagsChanged,
                          object: nil)
         
-        updateConnectionStatus()
-    }
-    
-    // MARK: - Check Internet Connection
-    @objc func statusManager(_ notification: Notification) {
-        updateConnectionStatus()
-    }
-    
-    func updateConnectionStatus() {
-        isInternetConnection =  Network.reachability.status == .unreachable ? false : true
+        connectionManager.updateConnectionStatus()
     }
     
     // We are willing to become first responder to get shake motion
@@ -74,7 +66,7 @@ class ViewController: UIViewController {
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            if isInternetConnection {
+            if connectionManager.isInternetConnection {
                 answerManager.getAnswer(for: "Example")
             } else {
                 if itemArray.count == 0 {
