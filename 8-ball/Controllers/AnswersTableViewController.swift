@@ -54,36 +54,8 @@ class AnswersTableViewController: UITableViewController {
             deleteItem(at: indexPath)
         }
     }
-    
-    // MARK: - Data Manipulation Methods
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-        
-        tableView.reloadData()
-    }
-    
-    func deleteItem(at indexPath: IndexPath) {
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
-        
-        saveItems()
-    }
-    
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        tableView.reloadData()
-    }
 }
-
+ 
 // MARK: - Search Bar Methods
 
 extension AnswersTableViewController: UISearchBarDelegate {
@@ -110,5 +82,35 @@ extension AnswersTableViewController: UISearchBarDelegate {
                 searchBar.resignFirstResponder()
             }
         }
+    }
+}
+
+// MARK: - Data Manipulation Methods
+
+extension AnswersTableViewController: ManagedObjectConvertible {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error loading items \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func deleteItem(at indexPath: IndexPath) {
+        context.delete(itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row)
+        
+        saveItems()
+    }
+    
+    func saveItems() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context, \(error)")
+        }
+        tableView.reloadData()
     }
 }

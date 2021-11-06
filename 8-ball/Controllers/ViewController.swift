@@ -82,15 +82,6 @@ class ViewController: UIViewController {
         titleLabel.text = "Motion cancelled"
     }
     
-    // MARK: - Data Manipulation Methods
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-    }
 }
 
 // MARK: - AnswerDelegate
@@ -104,4 +95,33 @@ extension ViewController: AnswerDelegateProtocol {
     func didFailWithError(error: Error) {
         titleLabel.text = itemArray[Int.random(in: 0..<itemArray.count)].hardcodedAnswer
     }
+}
+
+// MARK: - Data Manipulation Methods
+
+extension ViewController: ManagedObjectConvertible {
+    
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error loading items \(error)")
+        }
+    }
+    
+    func deleteItem(at indexPath: IndexPath) {
+        context.delete(itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row)
+        
+        saveItems()
+    }
+    
+    func saveItems() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context, \(error)")
+        }
+    }
+    
 }
