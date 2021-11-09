@@ -13,7 +13,11 @@ class AnswersTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var itemArray = [Item]()
     
-    private let databaseManager = DBManager()
+    private var databaseManager: DBManager!
+    
+    func setDatabaseManager(dbManager: DBManager) {
+        self.databaseManager = dbManager
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,15 @@ class AnswersTableViewController: UITableViewController {
         tableView.rowHeight = 50
         
         tableView.separatorColor = .gray
+    }
+    
+    init(dbManager: DBManager) {
+        self.databaseManager = dbManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     // MARK: - TableView Datasource Methods

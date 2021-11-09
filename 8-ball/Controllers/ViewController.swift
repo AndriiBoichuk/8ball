@@ -13,8 +13,7 @@ class ViewController: UIViewController {
 
     private var itemArray = [Item]()
     
-    private let databaseManager = DBManager()
-    
+    private var databaseManager: DBManager!
     private var connectionManager: ConnectionManager!
     private var answerManager: AnswerManager!
     
@@ -48,15 +47,21 @@ class ViewController: UIViewController {
         connectionManager.updateConnectionStatus()
     }
     
-    init?(coder: NSCoder, connectionManager: ConnectionManager, answerManager: AnswerManager) {
+    init?(coder: NSCoder, connectionManager: ConnectionManager, answerManager: AnswerManager, dbManager: DBManager) {
         self.connectionManager = connectionManager
         self.answerManager = answerManager
+        self.databaseManager = dbManager
         super.init(coder: coder)
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? SettingsViewController else { return }
+        destination.setDatabaseManager(dbManager: databaseManager)
     }
     
     // We are willing to become first responder to get shake motion

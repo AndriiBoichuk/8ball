@@ -12,7 +12,11 @@ class SettingsViewController: UIViewController {
 
     var itemArray = [Item]()
     
-    private let databaseManager = DBManager()
+    private var databaseManager: DBManager!
+    
+    func setDatabaseManager(dbManager: DBManager) {
+        self.databaseManager = dbManager
+    }
     
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var saveButtonView: UIView!
@@ -47,6 +51,20 @@ class SettingsViewController: UIViewController {
         saveButton.isEnabled = false
         
         itemArray = databaseManager.loadItems()
+    }
+    
+//    init(dbManager: DBManager) {
+//        self.databaseManager = dbManager
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? AnswersTableViewController else { return }
+        destination.setDatabaseManager(dbManager: databaseManager)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
