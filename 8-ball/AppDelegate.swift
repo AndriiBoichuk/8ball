@@ -10,13 +10,12 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         do {
             try Network.reachability = Reachability(hostname: "www.google.com")
-        }
-        catch {
+        } catch {
             switch error as? Network.Error {
             case let .failedToCreateWith(hostname)?:
                 print("Network error:\nFailed to create reachability object With host named:", hostname)
@@ -30,28 +29,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error)
             }
         }
-        
+
         return true
     }
-    
+
     func applicationWillTerminate(_ application: UIApplication) {
         saveContext()
     }
     // MARK: - Core Data stack
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
-        
+
         let container = NSPersistentContainer(name: "8-ball")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
     }()
-    
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -63,6 +62,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-}
 
+}

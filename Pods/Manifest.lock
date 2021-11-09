@@ -1,16 +1,20 @@
 PODS:
   - CLTypingLabel (0.4.0)
+  - SwiftLint (0.45.0)
 
 DEPENDENCIES:
   - CLTypingLabel (~> 0.4.0)
+  - SwiftLint (~> 0.45.0)
 
 SPEC REPOS:
   trunk:
     - CLTypingLabel
+    - SwiftLint
 
 SPEC CHECKSUMS:
   CLTypingLabel: 95a7d1faf7e3d1d952cd11cb0491d17d80c50934
+  SwiftLint: e5c7f1fba68eccfc51509d5b2ce1699f5502e0c7
 
-PODFILE CHECKSUM: ffe6a69d82d34fa69d5508d583bed00bd0687565
+PODFILE CHECKSUM: 2ea8771aeeb58de77959315a1275d9e2c757af7d
 
 COCOAPODS: 1.10.2

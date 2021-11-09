@@ -157,6 +157,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7BB066B426FDAAB1008FB062 /* Build configuration list for PBXNativeTarget "8-ball" */;
 			buildPhases = (
+				7BA8532F273AF6530015176E /* ShellScript */,
 				2D42237F9B8D5DFD1EFC20E9 /* [CP] Check Pods Manifest.lock */,
 				7BB0669C26FDAAAF008FB062 /* Sources */,
 				7BB0669D26FDAAAF008FB062 /* Frameworks */,
@@ -256,6 +257,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7BA8532F273AF6530015176E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
