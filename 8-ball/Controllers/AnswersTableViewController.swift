@@ -13,14 +13,15 @@ class AnswersTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var itemArray = [Item]()
     
-    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let databaseManager = DBManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
+        databaseManager.delegate = self
         
-        loadItems()
+        itemArray = databaseManager.loadItems()
         
         tableView.rowHeight = 50
         
@@ -51,7 +52,7 @@ class AnswersTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCell.EditingStyle.delete) {
-            deleteItem(at: indexPath)
+            databaseManager.deleteItem(at: indexPath)
         }
     }
     
@@ -73,12 +74,12 @@ extension AnswersTableViewController: UISearchBarDelegate {
         
         request.sortDescriptors = [sortDescriptor]
         
-        loadItems(with: request)
+        itemArray = databaseManager.loadItems(with: request)
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            loadItems()
+            itemArray = databaseManager.loadItems()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
@@ -86,32 +87,9 @@ extension AnswersTableViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - Data Manipulation Methods
-
-extension AnswersTableViewController: ManagedObjectConvertible {
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-        
+extension AnswersTableViewController: DBDelegateProtocol {
+    func reloadTableView() {
         tableView.reloadData()
     }
     
-    func deleteItem(at indexPath: IndexPath) {
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
-        
-        saveItems()
-    }
-    
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        tableView.reloadData()
-    }
 }

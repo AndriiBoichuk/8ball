@@ -11,7 +11,8 @@ import CoreData
 class SettingsViewController: UIViewController {
 
     var itemArray = [Item]()
-    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    private let databaseManager = DBManager()
     
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var saveButtonView: UIView!
@@ -45,7 +46,7 @@ class SettingsViewController: UIViewController {
         
         saveButton.isEnabled = false
         
-        loadItems()
+        itemArray = databaseManager.loadItems()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -55,31 +56,16 @@ class SettingsViewController: UIViewController {
     
     @IBAction func saveTouched(_ sender: UIButton) {
         if let answer = answerTextField.text {
-            let newItem = Item(context: context)
+            let newItem = Item(context: databaseManager.context)
             newItem.hardcodedAnswer = answer
             itemArray.append(newItem)
             
             saveButton.isEnabled = false
-            saveItems()
+            databaseManager.saveItems()
         }
         answerTextField.text = ""
     }
     
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
-    }
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-    }
     
     func turnOffButtonPressed() {
         if answerTextField.text == "" {
@@ -97,11 +83,11 @@ extension SettingsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if let answer = answerTextField.text {
-            let newItem = Item(context: context)
+            let newItem = Item(context: databaseManager.context)
             newItem.hardcodedAnswer = answer
             itemArray.append(newItem)
             
-            saveItems()
+            databaseManager.saveItems()
         }
         answerTextField.text = ""
         
