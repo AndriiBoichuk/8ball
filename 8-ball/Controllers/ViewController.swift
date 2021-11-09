@@ -11,14 +11,13 @@ import CLTypingLabel
 
 class ViewController: UIViewController {
 
-    var itemArray = [Item]()
+    private var itemArray = [Item]()
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    let connectionManager = ConnectionManager()
-    
-    var answerManager = AnswerManager()
-    
+    private var connectionManager: ConnectionManager!
+    private var answerManager: AnswerManager!
+
     @IBOutlet weak var titleLabel: CLTypingLabel!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,11 +48,28 @@ class ViewController: UIViewController {
         connectionManager.updateConnectionStatus()
     }
     
+    init?(coder: NSCoder, connectionManager: ConnectionManager, answerManager: AnswerManager) {
+        self.connectionManager = connectionManager
+        self.answerManager = answerManager
+        super.init(coder: coder)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
         get {
             return true
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "toSettings" else { return }
+        guard let destination = segue.destination as? SettingsViewController else { return }
+        destination.context = context
     }
 
     // MARK: - Enable detection of shake motion

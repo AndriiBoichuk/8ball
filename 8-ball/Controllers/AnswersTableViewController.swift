@@ -13,7 +13,7 @@ class AnswersTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var itemArray = [Item]()
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +54,7 @@ class AnswersTableViewController: UITableViewController {
             deleteItem(at: indexPath)
         }
     }
+    
 }
  
 // MARK: - Search Bar Methods

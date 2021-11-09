@@ -11,7 +11,7 @@ import CoreData
 class SettingsViewController: UIViewController {
 
     var itemArray = [Item]()
-    let context = (UIApplication.shared.delegate! as! AppDelegate).persistentContainer.viewContext
+    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var saveButtonView: UIView!
@@ -88,6 +88,7 @@ class SettingsViewController: UIViewController {
             saveButton.isEnabled = true
         }
     }
+    
 }
 
 // MARK: - TextField Delegate
