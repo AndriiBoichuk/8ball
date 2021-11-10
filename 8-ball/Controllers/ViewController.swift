@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = .clear
 
-        titleLabel.text = "Shake the device"
+        titleLabel.text = L10n.shake
 
         loadItems()
     }
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            titleLabel.text = "Shaking the device"
+            titleLabel.text = L10n.shake
         }
     }
 
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     }
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        titleLabel.text = "Motion cancelled"
+        titleLabel.text = L10n.canceled
     }
 
 }

@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  8-ball
+
+  Created by Андрій Бойчук on 10.11.2021.
+  
+*/
+
+"shake" = "Shake the device";
+"canceled" = "Motion cancelled"; 
