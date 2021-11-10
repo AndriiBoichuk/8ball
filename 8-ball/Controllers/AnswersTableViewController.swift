@@ -13,18 +13,32 @@ class AnswersTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var itemArray = [Item]()
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var databaseManager: DBManager!
+    
+    func setDatabaseManager(dbManager: DBManager) {
+        self.databaseManager = dbManager
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
+        databaseManager.delegate = self
         
-        loadItems()
+        itemArray = databaseManager.loadItems()
         
         tableView.rowHeight = 50
         
         tableView.separatorColor = .gray
+    }
+    
+    init(dbManager: DBManager) {
+        self.databaseManager = dbManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     // MARK: - TableView Datasource Methods
@@ -51,39 +65,12 @@ class AnswersTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCell.EditingStyle.delete) {
-            deleteItem(at: indexPath)
+            databaseManager.deleteItem(at: indexPath)
         }
     }
     
-    // MARK: - Data Manipulation Methods
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-        
-        tableView.reloadData()
-    }
-    
-    func deleteItem(at indexPath: IndexPath) {
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
-        
-        saveItems()
-    }
-    
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        tableView.reloadData()
-    }
 }
-
+ 
 // MARK: - Search Bar Methods
 
 extension AnswersTableViewController: UISearchBarDelegate {
@@ -100,15 +87,22 @@ extension AnswersTableViewController: UISearchBarDelegate {
         
         request.sortDescriptors = [sortDescriptor]
         
-        loadItems(with: request)
+        itemArray = databaseManager.loadItems(with: request)
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            loadItems()
+            itemArray = databaseManager.loadItems()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
         }
     }
+}
+
+extension AnswersTableViewController: DBDelegateProtocol {
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+    
 }

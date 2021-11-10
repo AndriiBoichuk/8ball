@@ -11,7 +11,12 @@ import CoreData
 class SettingsViewController: UIViewController {
 
     var itemArray = [Item]()
-    let context = (UIApplication.shared.delegate! as! AppDelegate).persistentContainer.viewContext
+    
+    private var databaseManager: DBManager!
+    
+    func setDatabaseManager(dbManager: DBManager) {
+        self.databaseManager = dbManager
+    }
     
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var saveButtonView: UIView!
@@ -45,7 +50,12 @@ class SettingsViewController: UIViewController {
         
         saveButton.isEnabled = false
         
-        loadItems()
+        itemArray = databaseManager.loadItems()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? AnswersTableViewController else { return }
+        destination.setDatabaseManager(dbManager: databaseManager)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -55,31 +65,16 @@ class SettingsViewController: UIViewController {
     
     @IBAction func saveTouched(_ sender: UIButton) {
         if let answer = answerTextField.text {
-            let newItem = Item(context: context)
+            let newItem = Item(context: databaseManager.context)
             newItem.hardcodedAnswer = answer
             itemArray.append(newItem)
             
             saveButton.isEnabled = false
-            saveItems()
+            databaseManager.saveItems()
         }
         answerTextField.text = ""
     }
     
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
-    }
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-    }
     
     func turnOffButtonPressed() {
         if answerTextField.text == "" {
@@ -88,6 +83,7 @@ class SettingsViewController: UIViewController {
             saveButton.isEnabled = true
         }
     }
+    
 }
 
 // MARK: - TextField Delegate
@@ -96,11 +92,11 @@ extension SettingsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if let answer = answerTextField.text {
-            let newItem = Item(context: context)
+            let newItem = Item(context: databaseManager.context)
             newItem.hardcodedAnswer = answer
             itemArray.append(newItem)
             
-            saveItems()
+            databaseManager.saveItems()
         }
         answerTextField.text = ""
         

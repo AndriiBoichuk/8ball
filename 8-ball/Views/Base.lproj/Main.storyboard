@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="__ball" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="__ball" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,7 +51,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" id="eXh-3C-fFK">
                             <imageReference key="image" image="gearshape" catalog="system" symbolScale="large" renderingMode="original"/>
                             <connections>
-                                <segue destination="IEd-lc-oKr" kind="show" id="Rfj-Kp-S0J"/>
+                                <segue destination="IEd-lc-oKr" kind="show" identifier="toSettings" id="Rfj-Kp-S0J"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -130,7 +130,7 @@
                                 </constraints>
                                 <state key="normal" title="See answers"/>
                                 <connections>
-                                    <segue destination="1ts-DD-i7M" kind="show" id="Z7K-qs-FjP"/>
+                                    <segue destination="1ts-DD-i7M" kind="show" identifier="toAnswers" id="Z7K-qs-FjP"/>
                                 </connections>
                             </button>
                         </subviews>

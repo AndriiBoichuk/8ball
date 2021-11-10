@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,9 @@
 		7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18314F27036E3C0002DC27 /* SettingsViewController.swift */; };
 		7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E95A02706D6B200C3B8DD /* Constants.swift */; };
 		7B472148271B4BD500D1D41F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B472147271B4BD500D1D41F /* Reachability.swift */; };
+		7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E2D927359A4900AAC475 /* ConnectionManager.swift */; };
+		7B71E2DC2735A67500AAC475 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E2DB2735A67500AAC475 /* DBService.swift */; };
+		7BA85331273B0A8C0015176E /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA85330273B0A8C0015176E /* DBManager.swift */; };
 		7BB066A426FDAAAF008FB062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB066A326FDAAAF008FB062 /* AppDelegate.swift */; };
 		7BB066A626FDAAAF008FB062 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB066A526FDAAAF008FB062 /* SceneDelegate.swift */; };
 		7BB066A826FDAAAF008FB062 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB066A726FDAAAF008FB062 /* ViewController.swift */; };
@@ -29,6 +32,9 @@
 		7B18314F27036E3C0002DC27 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7B2E95A02706D6B200C3B8DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7B472147271B4BD500D1D41F /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		7B71E2D927359A4900AAC475 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		7B71E2DB2735A67500AAC475 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		7BA85330273B0A8C0015176E /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		7BB066A026FDAAAF008FB062 /* 8-ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "8-ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB066A326FDAAAF008FB062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BB066A526FDAAAF008FB062 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +129,9 @@
 				7B017E3F270CC9CF00DA95C3 /* 8-ball.xcdatamodeld */,
 				7BEFEFB7270D98C6006DAAA6 /* AnswerData.swift */,
 				7BEFEFB9270D9AE3006DAAA6 /* AnswerManager.swift */,
+				7B71E2D927359A4900AAC475 /* ConnectionManager.swift */,
+				7B71E2DB2735A67500AAC475 /* DBService.swift */,
+				7BA85330273B0A8C0015176E /* DBManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -141,7 +150,6 @@
 				7A9F9BBCC4526B74250B4FE2 /* Pods-8-ball.debug.xcconfig */,
 				8BAE9E698ED66E54BAA72AD4 /* Pods-8-ball.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -262,12 +270,15 @@
 				7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */,
 				7BEFEFBA270D9AE3006DAAA6 /* AnswerManager.swift in Sources */,
 				7BB066A826FDAAAF008FB062 /* ViewController.swift in Sources */,
+				7BA85331273B0A8C0015176E /* DBManager.swift in Sources */,
 				7BB066A426FDAAAF008FB062 /* AppDelegate.swift in Sources */,
 				7BEFEFB8270D98C6006DAAA6 /* AnswerData.swift in Sources */,
+				7B71E2DC2735A67500AAC475 /* DBService.swift in Sources */,
 				7BD7E2A4271602E400709514 /* AnswersTableViewController.swift in Sources */,
 				7B017E41270CC9CF00DA95C3 /* 8-ball.xcdatamodeld in Sources */,
 				7BB066A626FDAAAF008FB062 /* SceneDelegate.swift in Sources */,
 				7B472148271B4BD500D1D41F /* Reachability.swift in Sources */,
+				7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */,
 				7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

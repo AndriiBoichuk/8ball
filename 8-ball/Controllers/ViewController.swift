@@ -11,12 +11,11 @@ import CLTypingLabel
 
 class ViewController: UIViewController {
 
-    var itemArray = [Item]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var itemArray = [Item]()
     
-    var isInternetConnection: Bool = true
-    
-    var answerManager = AnswerManager()
+    private var databaseManager: DBManager!
+    private var connectionManager: ConnectionManager!
+    private var answerManager: AnswerManager!
     
     @IBOutlet weak var titleLabel: CLTypingLabel!
     
@@ -29,7 +28,7 @@ class ViewController: UIViewController {
         
         titleLabel.text = "Shake the device"
         
-        loadItems()
+        itemArray = databaseManager.loadItems()
     }
     
     override func viewDidLoad() {
@@ -41,20 +40,28 @@ class ViewController: UIViewController {
         // Check internet connection
         NotificationCenter.default
             .addObserver(self,
-                         selector: #selector(statusManager),
+                         selector: #selector(connectionManager.statusManager),
                          name: .flagsChanged,
                          object: nil)
         
-        updateConnectionStatus()
+        connectionManager.updateConnectionStatus()
     }
     
-    // MARK: - Check Internet Connection
-    @objc func statusManager(_ notification: Notification) {
-        updateConnectionStatus()
+    init?(coder: NSCoder, connectionManager: ConnectionManager, answerManager: AnswerManager, dbManager: DBManager) {
+        self.connectionManager = connectionManager
+        self.answerManager = answerManager
+        self.databaseManager = dbManager
+        super.init(coder: coder)
+        
     }
     
-    func updateConnectionStatus() {
-        isInternetConnection =  Network.reachability.status == .unreachable ? false : true
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? SettingsViewController else { return }
+        destination.setDatabaseManager(dbManager: databaseManager)
     }
     
     // We are willing to become first responder to get shake motion
@@ -74,7 +81,7 @@ class ViewController: UIViewController {
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            if isInternetConnection {
+            if connectionManager.isInternetConnection {
                 answerManager.getAnswer(for: "Example")
             } else {
                 if itemArray.count == 0 {
@@ -90,15 +97,6 @@ class ViewController: UIViewController {
         titleLabel.text = "Motion cancelled"
     }
     
-    // MARK: - Data Manipulation Methods
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-    }
 }
 
 // MARK: - AnswerDelegate
