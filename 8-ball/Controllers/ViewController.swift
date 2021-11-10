@@ -13,11 +13,10 @@ class ViewController: UIViewController {
 
     private var itemArray = [Item]()
     
-    private let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+    private var databaseManager: DBManager!
     private var connectionManager: ConnectionManager!
     private var answerManager: AnswerManager!
-
+    
     @IBOutlet weak var titleLabel: CLTypingLabel!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,7 +28,7 @@ class ViewController: UIViewController {
         
         titleLabel.text = "Shake the device"
         
-        loadItems()
+        itemArray = databaseManager.loadItems()
     }
     
     override func viewDidLoad() {
@@ -48,9 +47,10 @@ class ViewController: UIViewController {
         connectionManager.updateConnectionStatus()
     }
     
-    init?(coder: NSCoder, connectionManager: ConnectionManager, answerManager: AnswerManager) {
+    init?(coder: NSCoder, connectionManager: ConnectionManager, answerManager: AnswerManager, dbManager: DBManager) {
         self.connectionManager = connectionManager
         self.answerManager = answerManager
+        self.databaseManager = dbManager
         super.init(coder: coder)
         
     }
@@ -59,17 +59,16 @@ class ViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? SettingsViewController else { return }
+        destination.setDatabaseManager(dbManager: databaseManager)
+    }
+    
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
         get {
             return true
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "toSettings" else { return }
-        guard let destination = segue.destination as? SettingsViewController else { return }
-        destination.context = context
     }
 
     // MARK: - Enable detection of shake motion
@@ -111,33 +110,4 @@ extension ViewController: AnswerDelegateProtocol {
     func didFailWithError(error: Error) {
         titleLabel.text = itemArray[Int.random(in: 0..<itemArray.count)].hardcodedAnswer
     }
-}
-
-// MARK: - Data Manipulation Methods
-
-extension ViewController: ManagedObjectConvertible {
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("Error loading items \(error)")
-        }
-    }
-    
-    func deleteItem(at indexPath: IndexPath) {
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
-        
-        saveItems()
-    }
-    
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-    }
-    
 }

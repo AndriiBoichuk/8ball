@@ -17,11 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let connectionManager = ConnectionManager()
             let answerManager = AnswerManager()
+            let dbManager = DBManager()
             
             let window = UIWindow(windowScene: windowScene)
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: "ViewController", creator: {coder -> ViewController? in ViewController.init(coder: coder, connectionManager: connectionManager, answerManager: answerManager)
+            let vc = storyboard.instantiateViewController(identifier: "ViewController", creator: {coder -> ViewController? in ViewController.init(coder: coder, connectionManager: connectionManager, answerManager: answerManager, dbManager: dbManager)
             })
             
             window.rootViewController = UINavigationController.init(rootViewController: vc)
