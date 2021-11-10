@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct K {
-    struct defaults {
+struct Constants {
+    struct Defaults {
         static let userDefaultsKey = "hardcodedAnswers"
         static var answers = [String]()
     }

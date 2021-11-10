@@ -7,5 +7,7 @@ target '8-ball' do
 
   # Pods for 8-ball
   pod 'CLTypingLabel', '~> 0.4.0'
+  pod 'SwiftLint', '~> 0.45.0'
+  pod 'SwiftGen', '~> 6.0'
 
 end

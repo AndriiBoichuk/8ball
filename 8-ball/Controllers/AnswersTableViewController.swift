@@ -11,6 +11,7 @@ import CoreData
 class AnswersTableViewController: UITableViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
+
     var itemArray = [Item]()
     
     private var databaseManager: DBManager!
@@ -23,12 +24,13 @@ class AnswersTableViewController: UITableViewController {
         super.viewDidLoad()
 
         searchBar.delegate = self
+
         databaseManager.delegate = self
         
         itemArray = databaseManager.loadItems()
         
         tableView.rowHeight = 50
-        
+
         tableView.separatorColor = .gray
     }
     
@@ -42,23 +44,23 @@ class AnswersTableViewController: UITableViewController {
     }
 
     // MARK: - TableView Datasource Methods
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemArray.count
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-        
+
         cell.textLabel?.text = itemArray[indexPath.row].hardcodedAnswer
-        
+
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -68,25 +70,25 @@ class AnswersTableViewController: UITableViewController {
             databaseManager.deleteItem(at: indexPath)
         }
     }
-    
+
 }
- 
+
 // MARK: - Search Bar Methods
 
 extension AnswersTableViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        
+
         let predicate = NSPredicate(format: "hardcodedAnswer CONTAINS[cd] %@", searchBar.text!)
-        
+
         request.predicate = predicate
-        
+
         let sortDescriptor = NSSortDescriptor(key: "hardcodedAnswer", ascending: true)
-        
+
         request.sortDescriptors = [sortDescriptor]
-        
+
         itemArray = databaseManager.loadItems(with: request)
     }
 
@@ -104,5 +106,4 @@ extension AnswersTableViewController: DBDelegateProtocol {
     func reloadTableView() {
         tableView.reloadData()
     }
-    
 }

@@ -11,6 +11,9 @@
 		7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18314F27036E3C0002DC27 /* SettingsViewController.swift */; };
 		7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E95A02706D6B200C3B8DD /* Constants.swift */; };
 		7B472148271B4BD500D1D41F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B472147271B4BD500D1D41F /* Reachability.swift */; };
+		7B559271273C5542000CD949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B55926F273C5542000CD949 /* Localizable.strings */; };
+		7B559274273C579C000CD949 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B559273273C579C000CD949 /* Assets.swift */; };
+		7B559276273C57A5000CD949 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B559275273C57A5000CD949 /* Strings.swift */; };
 		7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E2D927359A4900AAC475 /* ConnectionManager.swift */; };
 		7B71E2DC2735A67500AAC475 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E2DB2735A67500AAC475 /* DBService.swift */; };
 		7BA85331273B0A8C0015176E /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA85330273B0A8C0015176E /* DBManager.swift */; };
@@ -30,8 +33,12 @@
 		7A9F9BBCC4526B74250B4FE2 /* Pods-8-ball.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-8-ball.debug.xcconfig"; path = "Target Support Files/Pods-8-ball/Pods-8-ball.debug.xcconfig"; sourceTree = "<group>"; };
 		7B017E40270CC9CF00DA95C3 /* 8-ball.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "8-ball.xcdatamodel"; sourceTree = "<group>"; };
 		7B18314F27036E3C0002DC27 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		7B29FA97273C3A78008E5E4F /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		7B2E95A02706D6B200C3B8DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7B472147271B4BD500D1D41F /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		7B559270273C5542000CD949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7B559273273C579C000CD949 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		7B559275273C57A5000CD949 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		7B71E2D927359A4900AAC475 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7B71E2DB2735A67500AAC475 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		7BA85330273B0A8C0015176E /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
@@ -62,10 +69,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B29FA98273C3C4D008E5E4F /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				7B559273273C579C000CD949 /* Assets.swift */,
+				7B559275273C57A5000CD949 /* Strings.swift */,
+			);
+			path = SwiftGen;
+			sourceTree = "<group>";
+		};
 		7B472146271B4B7E00D1D41F /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				7BB066A326FDAAAF008FB062 /* AppDelegate.swift */,
 				7B472147271B4BD500D1D41F /* Reachability.swift */,
+				7BB066A526FDAAAF008FB062 /* SceneDelegate.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -73,6 +91,7 @@
 		7BB0669726FDAAAF008FB062 = {
 			isa = PBXGroup;
 			children = (
+				7B29FA97273C3A78008E5E4F /* swiftgen.yml */,
 				7BB066A226FDAAAF008FB062 /* 8-ball */,
 				7BB066A126FDAAAF008FB062 /* Products */,
 				FABD129010EE9899FCC48F10 /* Pods */,
@@ -91,8 +110,7 @@
 		7BB066A226FDAAAF008FB062 /* 8-ball */ = {
 			isa = PBXGroup;
 			children = (
-				7BB066A326FDAAAF008FB062 /* AppDelegate.swift */,
-				7BB066A526FDAAAF008FB062 /* SceneDelegate.swift */,
+				7B29FA98273C3C4D008E5E4F /* SwiftGen */,
 				7BB066B926FDAE1C008FB062 /* Models */,
 				7BB066B826FDAE15008FB062 /* Views */,
 				7BB066B726FDAE02008FB062 /* Controllers */,
@@ -100,6 +118,7 @@
 				7BB066AC26FDAAB1008FB062 /* Assets.xcassets */,
 				7BB066AE26FDAAB1008FB062 /* LaunchScreen.storyboard */,
 				7BB066B126FDAAB1008FB062 /* Info.plist */,
+				7B55926F273C5542000CD949 /* Localizable.strings */,
 			);
 			path = "8-ball";
 			sourceTree = "<group>";
@@ -161,6 +180,8 @@
 			buildConfigurationList = 7BB066B426FDAAB1008FB062 /* Build configuration list for PBXNativeTarget "8-ball" */;
 			buildPhases = (
 				2D42237F9B8D5DFD1EFC20E9 /* [CP] Check Pods Manifest.lock */,
+				7BA8532F273AF6530015176E /* ShellScript */,
+				7B559272273C56C8000CD949 /* SwiftGen */,
 				7BB0669C26FDAAAF008FB062 /* Sources */,
 				7BB0669D26FDAAAF008FB062 /* Frameworks */,
 				7BB0669E26FDAAAF008FB062 /* Resources */,
@@ -213,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BB066B026FDAAB1008FB062 /* LaunchScreen.storyboard in Resources */,
+				7B559271273C5542000CD949 /* Localizable.strings in Resources */,
 				7BB066AD26FDAAB1008FB062 /* Assets.xcassets in Resources */,
 				7BB066AB26FDAAAF008FB062 /* Main.storyboard in Resources */,
 			);
@@ -260,6 +282,41 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7B559272273C56C8000CD949 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi \n";
+		};
+		7BA8532F273AF6530015176E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint \n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -274,8 +331,10 @@
 				7BB066A426FDAAAF008FB062 /* AppDelegate.swift in Sources */,
 				7BEFEFB8270D98C6006DAAA6 /* AnswerData.swift in Sources */,
 				7B71E2DC2735A67500AAC475 /* DBService.swift in Sources */,
+				7B559276273C57A5000CD949 /* Strings.swift in Sources */,
 				7BD7E2A4271602E400709514 /* AnswersTableViewController.swift in Sources */,
 				7B017E41270CC9CF00DA95C3 /* 8-ball.xcdatamodeld in Sources */,
+				7B559274273C579C000CD949 /* Assets.swift in Sources */,
 				7BB066A626FDAAAF008FB062 /* SceneDelegate.swift in Sources */,
 				7B472148271B4BD500D1D41F /* Reachability.swift in Sources */,
 				7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */,
@@ -286,6 +345,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		7B55926F273C5542000CD949 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B559270273C5542000CD949 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		7BB066A926FDAAAF008FB062 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
