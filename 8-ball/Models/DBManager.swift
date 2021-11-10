@@ -14,7 +14,7 @@ protocol DBDelegateProtocol {
 
 class DBManager: ManagedObjectConvertible {
     
-    var delegate: AnswersTableViewController?
+    weak var delegate: AnswersTableViewController?
     
     private var itemArray = [Item]()
     let context: NSManagedObjectContext

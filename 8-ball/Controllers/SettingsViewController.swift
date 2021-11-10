@@ -53,15 +53,6 @@ class SettingsViewController: UIViewController {
         itemArray = databaseManager.loadItems()
     }
     
-//    init(dbManager: DBManager) {
-//        self.databaseManager = dbManager
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? AnswersTableViewController else { return }
         destination.setDatabaseManager(dbManager: databaseManager)

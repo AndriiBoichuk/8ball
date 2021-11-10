@@ -11,6 +11,7 @@ import Foundation
 import CoreData
 
 protocol ManagedObjectConvertible {
+    
     func loadItems(with request: NSFetchRequest<Item>) -> [Item]
     func deleteItem(at indexPath: IndexPath)
     func saveItems()
