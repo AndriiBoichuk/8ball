@@ -66,9 +66,7 @@ class ViewController: UIViewController {
     
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
-        get {
             return true
-        }
     }
 
     // MARK: - Enable detection of shake motion

@@ -4,3 +4,5 @@ line_length:
 disabled_rules:
 - trailing_whitespace
 - force_cast
+excluded:
+- 8-ball/SupportingFiles/Reachability.swift

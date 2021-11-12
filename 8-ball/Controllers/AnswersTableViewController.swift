@@ -66,7 +66,7 @@ class AnswersTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCell.EditingStyle.delete) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             databaseManager.deleteItem(at: indexPath)
         }
     }
