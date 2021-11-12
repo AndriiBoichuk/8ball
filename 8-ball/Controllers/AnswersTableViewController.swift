@@ -54,7 +54,7 @@ class AnswersTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: L10n.Cell.identifier, for: indexPath)
 
         cell.textLabel?.text = itemArray[indexPath.row].hardcodedAnswer
 
@@ -85,7 +85,7 @@ extension AnswersTableViewController: UISearchBarDelegate {
 
         request.predicate = predicate
 
-        let sortDescriptor = NSSortDescriptor(key: "hardcodedAnswer", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: L10n.Key.answer, ascending: true)
 
         request.sortDescriptors = [sortDescriptor]
 

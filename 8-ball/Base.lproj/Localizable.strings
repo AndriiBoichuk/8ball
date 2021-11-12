@@ -6,5 +6,10 @@
   
 */
 
-"shake" = "Shake the device";
-"canceled" = "Motion cancelled"; 
+"shake.title" = "Shake the device";
+"canceled.error.title" = "Motion cancelled";
+"error.internet.title" = "Check Internet";
+"cell.identifier" = "ItemCell";
+"key.answer" = "hardcodedAnswer";
+
+

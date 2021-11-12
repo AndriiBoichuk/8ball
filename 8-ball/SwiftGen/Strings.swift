@@ -10,10 +10,35 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
-  /// Motion cancelled
-  internal static let canceled = L10n.tr("Localizable", "canceled")
-  /// Shake the device
-  internal static let shake = L10n.tr("Localizable", "shake")
+
+  internal enum Canceled {
+    internal enum Error {
+      /// Motion cancelled
+      internal static let title = L10n.tr("Localizable", "canceled.error.title")
+    }
+  }
+
+  internal enum Cell {
+    /// ItemCell
+    internal static let identifier = L10n.tr("Localizable", "cell.identifier")
+  }
+
+  internal enum Error {
+    internal enum Internet {
+      /// Check Internet
+      internal static let title = L10n.tr("Localizable", "error.internet.title")
+    }
+  }
+
+  internal enum Key {
+    /// hardcodedAnswer
+    internal static let answer = L10n.tr("Localizable", "key.answer")
+  }
+
+  internal enum Shake {
+    /// Shake the device
+    internal static let title = L10n.tr("Localizable", "shake.title")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

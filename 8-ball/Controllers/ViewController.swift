@@ -28,7 +28,7 @@ class ViewController: UIViewController {
 
         itemArray = databaseManager.loadItems()
 
-        titleLabel.text = L10n.shake
+        titleLabel.text = L10n.Shake.title
     }
 
     override func viewDidLoad() {
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            titleLabel.text = L10n.shake
+            titleLabel.text = L10n.Shake.title
         }
     }
 
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
                 answerManager.getAnswer(for: "Example")
             } else {
                 if itemArray.count == 0 {
-                    titleLabel.text = "Check Internet"
+                    titleLabel.text = L10n.Error.Internet.title
                 } else {
                     titleLabel.text = itemArray[Int.random(in: 0..<itemArray.count)].hardcodedAnswer
                 }
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
     }
 
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        titleLabel.text = L10n.canceled
+        titleLabel.text = L10n.Canceled.Error.title
     }
 
 }
