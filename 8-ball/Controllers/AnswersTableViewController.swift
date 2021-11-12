@@ -27,20 +27,11 @@ class AnswersTableViewController: UITableViewController {
 
         databaseManager.delegate = self
         
-        itemArray = databaseManager.loadItems()
-        
         tableView.rowHeight = 50
 
         tableView.separatorColor = .gray
-    }
-    
-    init(dbManager: DBManager) {
-        self.databaseManager = dbManager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        
+        itemArray = databaseManager.loadItems()
     }
 
     // MARK: - TableView Datasource Methods

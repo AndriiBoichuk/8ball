@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import CLTypingLabel
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
     private var itemArray = [Item]()
 
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
 
 // MARK: - AnswerDelegate
 
-extension ViewController: AnswerDelegateProtocol {
+extension MainViewController: AnswerDelegateProtocol {
 
     func responseReceived(answer: String) {
         titleLabel.text = answer

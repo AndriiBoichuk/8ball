@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol AnswerDelegateProtocol {
+protocol AnswerDelegateProtocol: AnyObject {
     func responseReceived(answer: String)
     func didFailWithError(error: Error)
 }
 
 struct AnswerManager {
 
-    weak var delegate: ViewController?
+    weak var delegate: AnswerDelegateProtocol?
 
     func getAnswer(for word: String) {
         let url = "https://8ball.delegator.com/magic/JSON/\(word)"
