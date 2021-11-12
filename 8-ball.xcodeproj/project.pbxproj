@@ -110,15 +110,13 @@
 		7BB066A226FDAAAF008FB062 /* 8-ball */ = {
 			isa = PBXGroup;
 			children = (
-				7B29FA98273C3C4D008E5E4F /* SwiftGen */,
 				7BB066B926FDAE1C008FB062 /* Models */,
 				7BB066B826FDAE15008FB062 /* Views */,
 				7BB066B726FDAE02008FB062 /* Controllers */,
+				7BE52039273ED042006FE68F /* Resource */,
 				7B472146271B4B7E00D1D41F /* SupportingFiles */,
-				7BB066AC26FDAAB1008FB062 /* Assets.xcassets */,
 				7BB066AE26FDAAB1008FB062 /* LaunchScreen.storyboard */,
 				7BB066B126FDAAB1008FB062 /* Info.plist */,
-				7B55926F273C5542000CD949 /* Localizable.strings */,
 			);
 			path = "8-ball";
 			sourceTree = "<group>";
@@ -153,6 +151,16 @@
 				7BA85330273B0A8C0015176E /* DBManager.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7BE52039273ED042006FE68F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7B29FA98273C3C4D008E5E4F /* SwiftGen */,
+				7BB066AC26FDAAB1008FB062 /* Assets.xcassets */,
+				7B55926F273C5542000CD949 /* Localizable.strings */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		9BDD1D08B4164F609AE5E9CD /* Frameworks */ = {
