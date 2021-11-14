@@ -9,14 +9,8 @@ import UIKit
 import CoreData
 
 class SettingsViewController: UIViewController {
-
-    var itemArray = [Item]()
     
-    private var databaseManager: DBManager!
-    
-    func setDatabaseManager(dbManager: DBManager) {
-        self.databaseManager = dbManager
-    }
+    var settingsViewModel: SettingsViewModel!
     
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var saveButtonView: UIView!
@@ -49,12 +43,19 @@ class SettingsViewController: UIViewController {
 
         saveButton.isEnabled = false
 
-        itemArray = databaseManager.loadItems()
+        settingsViewModel.loadItems()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? AnswersTableViewController else { return }
-        destination.setDatabaseManager(dbManager: databaseManager)
+        let dbManager = settingsViewModel.settingsModel.getDBManager()
+        let model = AnswersModel(dbManager)
+        let viewModel = AnswersViewModel(model)
+        destination.setAnswersViewModel(viewModel)
+    }
+    
+    func setSettingsViewModel(_ viewModel: SettingsViewModel) {
+        self.settingsViewModel = viewModel
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -64,22 +65,14 @@ class SettingsViewController: UIViewController {
 
     @IBAction func saveTouched(_ sender: UIButton) {
         if let answer = answerTextField.text {
-            let newItem = Item(context: databaseManager.context)
-            newItem.hardcodedAnswer = answer
-            itemArray.append(newItem)
-
+            settingsViewModel.addAnswer(answer)
             saveButton.isEnabled = false
-            databaseManager.saveItems()
         }
         answerTextField.text = ""
     }
 
     func turnOffButtonPressed() {
-        if answerTextField.text == "" {
-            saveButton.isEnabled = false
-        } else {
-            saveButton.isEnabled = true
-        }
+        saveButton.isEnabled = answerTextField.text == "" ? false : true
     }
 
 }
@@ -90,15 +83,9 @@ extension SettingsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if let answer = answerTextField.text {
-            let newItem = Item(context: databaseManager.context)
-            newItem.hardcodedAnswer = answer
-            itemArray.append(newItem)
-            
-            databaseManager.saveItems()
-
+            settingsViewModel.addAnswer(answer)
         }
         answerTextField.text = ""
-
         turnOffButtonPressed()
         return true
     }

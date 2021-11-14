@@ -7,22 +7,11 @@
 
 import Foundation
 
-protocol AnswerDelegateProtocol: AnyObject {
-    func responseReceived(answer: String)
-    func didFailWithError(error: Error)
-}
-
 struct AnswerManager {
 
-    weak var delegate: AnswerDelegateProtocol?
+    func getAnswer(completion: @escaping (Magic?, Error?) -> Void) {
 
-    func getAnswer(for word: String) {
-        let url = "https://8ball.delegator.com/magic/JSON/\(word)"
-        performRequest(with: url)
-    }
-
-    func performRequest(with urlString: String) {
-
+        let urlString = "https://8ball.delegator.com/magic/JSON/Example"
         // Create URL
         let url = URL(string: urlString)!
 
@@ -32,13 +21,15 @@ struct AnswerManager {
         // Give the session a task
         let task = session.dataTask(with: url) { data, _, error in
             if error != nil {
-                delegate?.didFailWithError(error: error!)
+                completion(nil, error)
             }
             if let safeData = data {
-                if let title = parseJSON(answerData: safeData) {
+                if let item = parseJSON(answerData: safeData) {
                     DispatchQueue.main.async {
-                        delegate?.responseReceived(answer: title)
+                        completion(item, nil)
                     }
+                } else {
+                    completion(nil, nil)
                 }
             }
         }
@@ -46,15 +37,13 @@ struct AnswerManager {
         task.resume()
     }
 
-    func parseJSON(answerData: Data) -> String? {
+    func parseJSON(answerData: Data) -> Magic? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(AnswerData.self, from: answerData)
-            let title = decodedData.magic.answer
-
-            return title
+            let item = decodedData.magic
+            return item
         } catch {
-            delegate?.didFailWithError(error: error)
             return nil
         }
     }
