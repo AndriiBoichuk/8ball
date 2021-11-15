@@ -9,14 +9,14 @@ import Foundation
 
 class ConnectionManager {
     var isInternetConnection: Bool = true
-    
+
     // MARK: - Check Internet Connection
     @objc func statusManager(_ notification: Notification) {
         updateConnectionStatus()
     }
-    
+
     func updateConnectionStatus() {
         isInternetConnection =  Network.reachability.status == .unreachable ? false : true
     }
-    
+
 }

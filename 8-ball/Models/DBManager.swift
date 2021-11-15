@@ -8,13 +8,13 @@
 import UIKit
 import CoreData
 
-protocol DBDelegateProtocol {
+protocol DBDelegateProtocol: AnyObject {
     func reloadTableView()
 }
 
 class DBManager: ManagedObjectConvertible {
     
-    weak var delegate: AnswersTableViewController?
+    weak var delegate: DBDelegateProtocol?
     
     private var itemArray = [Item]()
     let context: NSManagedObjectContext
@@ -37,7 +37,6 @@ class DBManager: ManagedObjectConvertible {
     func deleteItem(at indexPath: IndexPath) {
         context.delete(itemArray[indexPath.row])
         itemArray.remove(at: indexPath.row)
-        
         saveItems()
     }
     

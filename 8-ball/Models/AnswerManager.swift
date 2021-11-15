@@ -7,30 +7,30 @@
 
 import Foundation
 
-protocol AnswerDelegateProtocol {
+protocol AnswerDelegateProtocol: AnyObject {
     func responseReceived(answer: String)
     func didFailWithError(error: Error)
 }
 
 struct AnswerManager {
-    
-    var delegate: ViewController?
-    
+
+    weak var delegate: AnswerDelegateProtocol?
+
     func getAnswer(for word: String) {
         let url = "https://8ball.delegator.com/magic/JSON/\(word)"
         performRequest(with: url)
     }
-    
+
     func performRequest(with urlString: String) {
-        
+
         // Create URL
         let url = URL(string: urlString)!
-        
+
         // Create a URLSession
         let session = URLSession(configuration: .default)
-        
+
         // Give the session a task
-        let task = session.dataTask(with: url) { data, resopnse, error in
+        let task = session.dataTask(with: url) { data, _, error in
             if error != nil {
                 delegate?.didFailWithError(error: error!)
             }
@@ -45,13 +45,13 @@ struct AnswerManager {
         // Start the task
         task.resume()
     }
-    
+
     func parseJSON(answerData: Data) -> String? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(AnswerData.self, from: answerData)
             let title = decodedData.magic.answer
-            
+
             return title
         } catch {
             delegate?.didFailWithError(error: error)
