@@ -8,9 +8,5 @@
 import Foundation
 
 struct Constants {
-    struct Defaults {
-        static let userDefaultsKey = "hardcodedAnswers"
-        static var answers = [String]()
-    }
     static let fontName = "Rockwell"
 }
