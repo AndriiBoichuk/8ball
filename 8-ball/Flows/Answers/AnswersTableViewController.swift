@@ -10,34 +10,29 @@ import CoreData
 
 class AnswersTableViewController: UITableViewController {
 
+    var answersViewModel: AnswersViewModel!
+    
     @IBOutlet weak var searchBar: UISearchBar!
-
-    var itemArray = [Item]()
-    
-    private var databaseManager: DBManager!
-    
-    func setDatabaseManager(dbManager: DBManager) {
-        self.databaseManager = dbManager
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
-
-        databaseManager.delegate = self
         
         tableView.rowHeight = 50
-
         tableView.separatorColor = .gray
         
-        itemArray = databaseManager.loadItems()
+        answersViewModel.loadItems()
+    }
+    
+    func setAnswersViewModel(_ viewModel: AnswersViewModel) {
+        self.answersViewModel = viewModel
     }
 
     // MARK: - TableView Datasource Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
+        return answersViewModel.countArray()
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -46,9 +41,9 @@ class AnswersTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: L10n.Cell.identifier, for: indexPath)
-
-        cell.textLabel?.text = itemArray[indexPath.row].hardcodedAnswer
-
+        
+        let item = answersViewModel.getItem(at: indexPath)
+        cell.textLabel?.text = item.hardcodedAnswer
         return cell
     }
 
@@ -58,8 +53,13 @@ class AnswersTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            databaseManager.deleteItem(at: indexPath)
+            answersViewModel.deleteItem(at: indexPath)
+            reloadTableView()
         }
+    }
+    
+    func reloadTableView() {
+        tableView.reloadData()
     }
 
 }
@@ -69,32 +69,16 @@ class AnswersTableViewController: UITableViewController {
 extension AnswersTableViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-
-        let predicate = NSPredicate(format: "hardcodedAnswer CONTAINS[cd] %@", searchBar.text!)
-
-        request.predicate = predicate
-
-        let sortDescriptor = NSSortDescriptor(key: L10n.Key.answer, ascending: true)
-
-        request.sortDescriptors = [sortDescriptor]
-
-        itemArray = databaseManager.loadItems(with: request)
+        answersViewModel.loadItems(with: searchBar.text!)
+        reloadTableView()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            itemArray = databaseManager.loadItems()
+            answersViewModel.loadItems()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
         }
-    }
-}
-
-extension AnswersTableViewController: DBDelegateProtocol {
-    func reloadTableView() {
-        tableView.reloadData()
     }
 }

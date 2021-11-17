@@ -12,6 +12,14 @@ struct AnswerData: Decodable {
 }
 
 struct Magic: Decodable {
+    let question: String
     let answer: String
     let type: String
+}
+
+extension Magic {
+    func toAnswer() -> Answer {
+        let answer = Answer(answer: answer, type: type)
+        return answer
+    }
 }

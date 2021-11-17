@@ -5,28 +5,27 @@
 //  Created by Андрій Бойчук on 09.11.2021.
 //
 
-import UIKit
 import CoreData
 
-protocol DBDelegateProtocol: AnyObject {
-    func reloadTableView()
+protocol ManagedObjectConvertible {
+
+    func loadItems(with request: NSFetchRequest<Item>) -> [Item]
+    func deleteItem(at indexPath: IndexPath)
+    func saveItems()
 }
 
-class DBManager: ManagedObjectConvertible {
-    
-    weak var delegate: DBDelegateProtocol?
+final class DBManager: ManagedObjectConvertible {
     
     private var itemArray = [Item]()
     let context: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext) {
+    init(context: NSManagedObjectContext) {
         self.context = context
     }
     
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) -> [Item] {
         do {
             itemArray = try context.fetch(request)
-            reloadTableView()
             return itemArray
         } catch {
             fatalError("Error loading items \(error)")
@@ -36,22 +35,15 @@ class DBManager: ManagedObjectConvertible {
     
     func deleteItem(at indexPath: IndexPath) {
         context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
         saveItems()
+        _ = loadItems()
     }
     
     func saveItems() {
         do {
             try context.save()
-            reloadTableView()
         } catch {
             print("Error saving context, \(error)")
-        }
-    }
-    
-    func reloadTableView() {
-        if let viewController = delegate {
-            viewController.reloadTableView()
         }
     }
     

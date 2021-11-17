@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ConnectionManager {
+final class ConnectionManager {
     var isInternetConnection: Bool = true
 
     // MARK: - Check Internet Connection
