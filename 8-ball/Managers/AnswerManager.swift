@@ -9,15 +9,14 @@ import Foundation
 
 struct AnswerManager {
 
+    private let session = URLSession(configuration: .default)
+    
     func getAnswer(completion: @escaping (Magic?, Error?) -> Void) {
 
         let urlString = "https://8ball.delegator.com/magic/JSON/Example"
         // Create URL
         let url = URL(string: urlString)!
-
-        // Create a URLSession
-        let session = URLSession(configuration: .default)
-
+        
         // Give the session a task
         let task = session.dataTask(with: url) { data, _, error in
             if error != nil {
@@ -37,7 +36,7 @@ struct AnswerManager {
         task.resume()
     }
 
-    func parseJSON(answerData: Data) -> Magic? {
+    private func parseJSON(answerData: Data) -> Magic? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(AnswerData.self, from: answerData)

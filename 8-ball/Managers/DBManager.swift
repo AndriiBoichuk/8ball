@@ -14,7 +14,7 @@ protocol ManagedObjectConvertible {
     func saveItems()
 }
 
-class DBManager: ManagedObjectConvertible {
+final class DBManager: ManagedObjectConvertible {
     
     private var itemArray = [Item]()
     let context: NSManagedObjectContext
@@ -35,7 +35,6 @@ class DBManager: ManagedObjectConvertible {
     
     func deleteItem(at indexPath: IndexPath) {
         context.delete(itemArray[indexPath.row])
-//        itemArray.remove(at: indexPath.row)
         saveItems()
         _ = loadItems()
     }
