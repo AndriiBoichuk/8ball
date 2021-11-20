@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 class AnswersTableViewController: UIViewController {
-
+    
     var answersViewModel: AnswersViewModel!
     
     private let searchBar = UISearchBar()
@@ -17,7 +17,7 @@ class AnswersTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         searchBar.delegate = self
         
         loadViews()
@@ -26,8 +26,13 @@ class AnswersTableViewController: UIViewController {
         answersViewModel.loadItems()
     }
     
-    func setAnswersViewModel(_ viewModel: AnswersViewModel) {
+    init(_ viewModel: AnswersViewModel) {
         self.answersViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func reloadTableView() {
@@ -42,7 +47,7 @@ class AnswersTableViewController: UIViewController {
         tableView.rowHeight = 50
         tableView.separatorColor = .gray
     }
-
+    
 }
 
 // MARK: - TableView Datasource Methods
@@ -81,12 +86,12 @@ extension AnswersTableViewController: UITableViewDataSource, UITableViewDelegate
 // MARK: - Search Bar Methods
 
 extension AnswersTableViewController: UISearchBarDelegate {
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         answersViewModel.loadItems(with: searchBar.text!)
         reloadTableView()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             answersViewModel.loadItems()
@@ -97,8 +102,9 @@ extension AnswersTableViewController: UISearchBarDelegate {
     }
 }
 
-extension AnswersTableViewController {
-    private func loadViews() {
+private extension AnswersTableViewController {
+    
+    func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
@@ -110,4 +116,5 @@ extension AnswersTableViewController {
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
+    
 }

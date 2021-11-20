@@ -13,8 +13,10 @@ struct Answer {
 }
 
 extension Answer {
+    
     func toPresentableAnswer() -> PresentableAnswer {
         let presentableAnswer = PresentableAnswer(answer: answer.capitalized)
         return presentableAnswer
     }
+    
 }

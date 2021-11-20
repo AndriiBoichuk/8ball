@@ -12,6 +12,7 @@ protocol ManagedObjectConvertible {
     func loadItems(with request: NSFetchRequest<Item>) -> [Item]
     func deleteItem(at indexPath: IndexPath)
     func saveItems()
+    
 }
 
 final class DBManager: ManagedObjectConvertible {

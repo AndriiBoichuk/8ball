@@ -18,25 +18,30 @@ class SettingsViewController: UIViewController {
     private let answersButtom = UIButton()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadViews()
         loadNavBar()
         
         settingsViewModel.loadItems()
     }
     
-    func setSettingsViewModel(_ viewModel: SettingsViewModel) {
+    init(_ viewModel: SettingsViewModel) {
         self.settingsViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         turnOffButtonPressed()
     }
-
+    
     @objc func saveTouched() {
         if let answer = answerTextField.text {
             settingsViewModel.addAnswer(answer)
@@ -46,23 +51,23 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func seeAnswersTouched() {
-        let answersVC = AnswersTableViewController()
         let dbManager = settingsViewModel.settingsModel.getDBManager()
         let model = AnswersModel(dbManager)
         let viewModel = AnswersViewModel(model)
-        answersVC.setAnswersViewModel(viewModel)
+        let answersVC = AnswersTableViewController(viewModel)
         navigationController?.pushViewController(answersVC, animated: true)
     }
-
+    
     func turnOffButtonPressed() {
         saveButton.isEnabled = answerTextField.text == "" ? false : true
     }
-
+    
 }
 
 // MARK: - TextField Delegate
 
 extension SettingsViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if let answer = answerTextField.text {
@@ -72,10 +77,12 @@ extension SettingsViewController: UITextFieldDelegate {
         turnOffButtonPressed()
         return true
     }
+    
 }
 
-extension SettingsViewController {
-    private func loadViews() {
+private extension SettingsViewController {
+    
+    func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
         
         view.addSubview(imageView)
@@ -91,7 +98,7 @@ extension SettingsViewController {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(imageView.snp.bottom).inset(-26)
+            make.top.equalTo(imageView.snp.bottom).offset(26)
             make.height.equalTo(40)
         }
         titleLabel.text = "Hardcoded answers"
@@ -100,7 +107,7 @@ extension SettingsViewController {
         view.addSubview(answerTextField)
         answerTextField.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).inset(-20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(48)
         }
@@ -145,7 +152,7 @@ extension SettingsViewController {
         answersButtom.titleLabel?.font = UIFont(name: Constants.fontName, size: 16)
     }
     
-    private func loadNavBar() {
+    func loadNavBar() {
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.black,
             .font: UIFont(name: Constants.fontName, size: 22)!
@@ -156,4 +163,5 @@ extension SettingsViewController {
         navigationController?.view.backgroundColor = .clear
         navigationItem.title = "Settings"
     }
+    
 }

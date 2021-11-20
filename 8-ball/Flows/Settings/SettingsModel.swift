@@ -8,6 +8,7 @@
 import Foundation
 
 class SettingsModel {
+    
     private var itemArray = [Item]()
     
     private var databaseManager: DBManager!
@@ -20,7 +21,7 @@ class SettingsModel {
         let newItem = Item(context: databaseManager.context)
         newItem.hardcodedAnswer = answer
         itemArray.append(newItem)
-
+        
         databaseManager.saveItems()
     }
     
@@ -31,4 +32,5 @@ class SettingsModel {
     func getDBManager() -> DBManager {
         return databaseManager
     }
+    
 }

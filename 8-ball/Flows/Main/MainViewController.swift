@@ -11,17 +11,16 @@ import CLTypingLabel
 import SnapKit
 
 class MainViewController: UIViewController {
-
-    var mainViewModel: MainViewModel!
     
-//    @IBOutlet weak var titleLabel: CLTypingLabel!
+    var mainViewModel: MainViewModel
+    
     private let titleLabel = CLTypingLabel()
     private let imageView = UIImageView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,50 +30,53 @@ class MainViewController: UIViewController {
         self.becomeFirstResponder() // To get shake gesture
         mainViewModel.loadItems()
     }
-
-    func setMainViewModel(_ mainViewModel: MainViewModel) {
+    
+    init(_ mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
-            return true
+        return true
     }
-
+    
     // MARK: - Enable detection of shake motion
-
+    
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             titleLabel.text = L10n.Shake.title.capitalized
         }
     }
-
+    
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             let presentableAnswer = mainViewModel.getPresentableAnswer()
-            DispatchQueue.main.async {
-                self.titleLabel.text = presentableAnswer.answer
-            }
+            self.titleLabel.text = presentableAnswer.answer
         }
     }
-
+    
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         titleLabel.text = L10n.Canceled.Error.title.capitalized
     }
     
     @objc func settingsButtonTapped() {
-        let settingsVC = SettingsViewController()
         let dbManager = mainViewModel.mainModel.getDBManager()
         let model = SettingsModel(dbManager)
         let viewModel = SettingsViewModel(model)
-        settingsVC.setSettingsViewModel(viewModel)
+        let settingsVC = SettingsViewController(viewModel)
         navigationController?.pushViewController(settingsVC, animated: true)
     }
-
+    
 }
 
-extension MainViewController {
-    private func loadViews() {
+private extension MainViewController {
+    
+    func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
@@ -97,7 +99,7 @@ extension MainViewController {
         imageView.tintColor = .black
     }
     
-    private func loadNavBar() {
+    func loadNavBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -107,7 +109,8 @@ extension MainViewController {
             style: .done,
             target: self,
             action: #selector(settingsButtonTapped)
-            )
+        )
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
+    
 }

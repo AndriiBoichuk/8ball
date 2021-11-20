@@ -46,4 +46,5 @@ struct AnswerManager {
             return nil
         }
     }
+    
 }
