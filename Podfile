@@ -9,5 +9,6 @@ target '8-ball' do
   pod 'CLTypingLabel', '~> 0.4.0'
   pod 'SwiftLint', '~> 0.45.0'
   pod 'SwiftGen', '~> 6.0'
+  pod 'SnapKit', '~> 5.0.1'
 
 end

@@ -8,6 +8,7 @@
 import Foundation
 
 class MainViewModel {
+    
     var mainModel: MainModel
     
     init(_ model: MainModel) {
@@ -22,4 +23,5 @@ class MainViewModel {
     func loadItems() {
         mainModel.loadItems()
     }
+    
 }

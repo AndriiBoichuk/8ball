@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 class AnswersModel {
+    
     private var itemArray = [Item]()
     
     private var databaseManager: DBManager!
@@ -32,4 +33,5 @@ class AnswersModel {
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         itemArray = databaseManager.loadItems(with: request)
     }
+    
 }
