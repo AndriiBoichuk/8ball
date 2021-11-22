@@ -10,7 +10,7 @@ import CoreData
 
 class AnswersTableViewController: UIViewController {
     
-    var answersViewModel: AnswersViewModel!
+    private let answersViewModel: AnswersViewModel
     
     private let searchBar = UISearchBar()
     private let tableView = UITableView()

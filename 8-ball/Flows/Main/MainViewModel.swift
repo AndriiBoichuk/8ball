@@ -24,4 +24,8 @@ class MainViewModel {
         mainModel.loadItems()
     }
     
+    func updateCounter() -> String {
+        return String(mainModel.updateCounter())
+    }
+    
 }

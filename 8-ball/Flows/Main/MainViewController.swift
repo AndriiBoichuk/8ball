@@ -7,15 +7,15 @@
 
 import UIKit
 import CoreData
-import CLTypingLabel
 import SnapKit
 
 class MainViewController: UIViewController {
     
-    var mainViewModel: MainViewModel
+    private let mainViewModel: MainViewModel
     
-    private let titleLabel = CLTypingLabel()
+    private let titleLabel = UILabel()
     private let imageView = UIImageView()
+    private let counterLabel = UILabel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,13 +50,15 @@ class MainViewController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             titleLabel.text = L10n.Shake.title.capitalized
+            titleLabel.text = "Shaking"
+            counterLabel.text = "Counter - " + mainViewModel.updateCounter()
         }
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             let presentableAnswer = mainViewModel.getPresentableAnswer()
-            self.titleLabel.text = presentableAnswer.answer
+            titleLabel.text = presentableAnswer.answer
         }
     }
     
@@ -65,11 +67,15 @@ class MainViewController: UIViewController {
     }
     
     @objc func settingsButtonTapped() {
+        navigationController?.pushViewController(getSettingsVC(), animated: true)
+    }
+    
+    private func getSettingsVC() -> SettingsViewController {
         let dbManager = mainViewModel.mainModel.getDBManager()
         let model = SettingsModel(dbManager)
         let viewModel = SettingsViewModel(model)
         let settingsVC = SettingsViewController(viewModel)
-        navigationController?.pushViewController(settingsVC, animated: true)
+        return settingsVC
     }
     
 }
@@ -78,6 +84,16 @@ private extension MainViewController {
     
     func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
+        view.addSubview(counterLabel)
+        counterLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(50)
+            make.leading.equalToSuperview().offset(30)
+            make.height.equalTo(20)
+        }
+        counterLabel.text = "Counter - " + mainViewModel.updateCounter()
+        counterLabel.tintColor = .black
+        counterLabel.font = UIFont(name: Constants.fontName, size: 18)
+        
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.center.equalTo(self.view.safeAreaLayoutGuide.snp.center)
