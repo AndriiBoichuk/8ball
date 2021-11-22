@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 class AnswersViewModel {
+    
     var answersModel: AnswersModel
     
     init(_ model: AnswersModel) {
@@ -32,16 +33,17 @@ class AnswersViewModel {
             answersModel.loadItems()
         } else {
             let request: NSFetchRequest<Item> = Item.fetchRequest()
-
+            
             let predicate = NSPredicate(format: "hardcodedAnswer CONTAINS[cd] %@", word)
-
+            
             request.predicate = predicate
-
+            
             let sortDescriptor = NSSortDescriptor(key: L10n.Key.answer, ascending: true)
-
+            
             request.sortDescriptors = [sortDescriptor]
             
             answersModel.loadItems(with: request)
         }
     }
+    
 }

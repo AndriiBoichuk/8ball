@@ -8,6 +8,7 @@
 import Foundation
 
 class MainModel {
+    
     private var itemArray = [Item]()
     
     private var databaseManager: DBManager!
@@ -34,7 +35,7 @@ class MainModel {
                          object: nil)
         connectionManager.updateConnectionStatus()
     }
-
+    
     func getAnswer() -> Answer {
         var answer = Answer(answer: "", type: nil)
         if connectionManager.isInternetConnection {
@@ -59,4 +60,5 @@ class MainModel {
     func loadItems() {
         itemArray = databaseManager.loadItems()
     }
+    
 }

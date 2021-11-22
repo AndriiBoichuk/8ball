@@ -8,6 +8,7 @@
 import Foundation
 
 class SettingsViewModel {
+    
     var settingsModel: SettingsModel
     
     init(_ model: SettingsModel) {
@@ -21,4 +22,5 @@ class SettingsViewModel {
     func loadItems() {
         settingsModel.loadItems()
     }
+    
 }

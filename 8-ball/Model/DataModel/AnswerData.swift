@@ -18,8 +18,10 @@ struct Magic: Decodable {
 }
 
 extension Magic {
+    
     func toAnswer() -> Answer {
         let answer = Answer(answer: answer, type: type)
         return answer
     }
+    
 }
