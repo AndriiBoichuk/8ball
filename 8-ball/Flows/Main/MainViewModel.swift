@@ -24,8 +24,8 @@ class MainViewModel {
         mainModel.loadItems()
     }
     
-    func updateCounter() -> String {
-        return String(mainModel.updateCounter())
+    func getQuantity() -> String {
+        return String(mainModel.getQuantity())
     }
     
 }

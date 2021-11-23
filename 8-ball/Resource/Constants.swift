@@ -10,3 +10,7 @@ import Foundation
 struct Constants {
     static let fontName = "Rockwell"
 }
+
+enum StorageKey: String {
+    case key = "key"
+}

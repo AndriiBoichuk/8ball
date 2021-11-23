@@ -7,9 +7,11 @@
 */
 
 "shake.title" = "Shake the device";
+"shaking.title" = "Shaking";
 "canceled.error.title" = "Motion cancelled";
 "error.internet.title" = "Check Internet";
 "cell.identifier" = "ItemCell";
 "key.answer" = "hardcodedAnswer";
-
+"image.shakeIphone" = "iphone.radiowaves.left.and.right";
+"image.settings" = "gearshape";
 

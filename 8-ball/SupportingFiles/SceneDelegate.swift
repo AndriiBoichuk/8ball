@@ -18,11 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let connectionManager = ConnectionManager()
         let answerManager = AnswerManager()
+        
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let dbManager = DBManager(context: context)
+        let keychainManager = KeychainManager()
         
-        let model = MainModel(dbManager, connectionManager, answerManager)
+        let model = MainModel(dbManager, connectionManager, answerManager, keychainManager)
+        
         let viewModel = MainViewModel(model)
+        
         let rootViewController = MainViewController(viewModel)
         let navigationController = UINavigationController(rootViewController: rootViewController)
         

@@ -11,15 +11,16 @@ import KeychainSwift
 class MainModel {
     
     private var itemArray = [Item]()
-    private var keychain = KeychainSwift()
-    private var databaseManager: DBManager!
-    private var connectionManager: ConnectionManager!
-    private var answerManager: AnswerManager!
+    private let keychainManager: KeychainManager
+    private let databaseManager: DBManager
+    private let connectionManager: ConnectionManager
+    private let answerManager: AnswerManager
     
-    init(_ dbManager: DBManager, _ connectionManager: ConnectionManager, _ answerManager: AnswerManager) {
+    init(_ dbManager: DBManager, _ connectionManager: ConnectionManager, _ answerManager: AnswerManager, _ keychainManger: KeychainManager) {
         self.databaseManager = dbManager
         self.connectionManager = connectionManager
         self.answerManager = answerManager
+        self.keychainManager = keychainManger
         
         setConnectionStatus()
     }
@@ -62,19 +63,8 @@ class MainModel {
         itemArray = databaseManager.loadItems()
     }
     
-    func updateCounter() -> Int {
-        if let countStr = keychain.get("key") {
-            if var count = Int(countStr) {
-                count += 1
-                keychain.set(String(count), forKey: "key")
-                return count
-            } else {
-                return 0
-            }
-        } else {
-            keychain.set("0", forKey: "key")
-            return 0
-        }
+    func getQuantity() -> Int {
+        keychainManager.getCount()
     }
     
 }

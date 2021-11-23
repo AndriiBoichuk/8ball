@@ -49,9 +49,8 @@ class MainViewController: UIViewController {
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            titleLabel.text = L10n.Shake.title.capitalized
-            titleLabel.text = "Shaking"
-            counterLabel.text = "Counter - " + mainViewModel.updateCounter()
+            titleLabel.text = L10n.Shaking.title.capitalized
+            counterLabel.text = "Counter - " + mainViewModel.getQuantity()
         }
     }
     
@@ -90,7 +89,7 @@ private extension MainViewController {
             make.leading.equalToSuperview().offset(30)
             make.height.equalTo(20)
         }
-        counterLabel.text = "Counter - " + mainViewModel.updateCounter()
+        counterLabel.text = "Counter - " + mainViewModel.getQuantity()
         counterLabel.tintColor = .black
         counterLabel.font = UIFont(name: Constants.fontName, size: 18)
         
@@ -111,7 +110,7 @@ private extension MainViewController {
             make.width.equalTo(179)
             make.height.equalTo(120)
         }
-        imageView.image = UIImage(systemName: "iphone.radiowaves.left.and.right")
+        imageView.image = UIImage(systemName: L10n.Image.shakeIphone)
         imageView.tintColor = .black
     }
     
@@ -121,7 +120,7 @@ private extension MainViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = .clear
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "gearshape"),
+            image: UIImage(systemName: L10n.Image.settings),
             style: .done,
             target: self,
             action: #selector(settingsButtonTapped)
