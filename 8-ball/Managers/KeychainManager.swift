@@ -14,18 +14,26 @@ class KeychainManager {
     
     func getCount() -> Int {
         let key: StorageKey = .key
-        if let countStr = keychain.get(key.rawValue) {
+        if let countStr = getValue(for: key) {
             if var count = Int(countStr) {
                 count += 1
-                keychain.set(String(count), forKey: key.rawValue)
+                set(value: String(count), for: key)
                 return count
             } else {
                 return 0
             }
         } else {
-            keychain.set("0", forKey: key.rawValue)
+            set(value: "0", for: key)
             return 0
         }
+    }
+    
+    private func set(value: String, for key: StorageKey) {
+        keychain.set(value, forKey: key.rawValue)
+    }
+    
+    private func getValue(for key: StorageKey) -> String? {
+        keychain.get(key.rawValue)
     }
     
 }
