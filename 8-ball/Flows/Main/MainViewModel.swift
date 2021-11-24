@@ -24,4 +24,8 @@ class MainViewModel {
         mainModel.loadItems()
     }
     
+    func getQuantity() -> String {
+        return String(mainModel.getQuantity())
+    }
+    
 }

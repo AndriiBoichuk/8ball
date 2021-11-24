@@ -7,15 +7,15 @@
 
 import UIKit
 import CoreData
-import CLTypingLabel
 import SnapKit
 
 class MainViewController: UIViewController {
     
-    var mainViewModel: MainViewModel
+    private let mainViewModel: MainViewModel
     
-    private let titleLabel = CLTypingLabel()
+    private let titleLabel = UILabel()
     private let imageView = UIImageView()
+    private let counterLabel = UILabel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,14 +49,15 @@ class MainViewController: UIViewController {
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            titleLabel.text = L10n.Shake.title.capitalized
+            titleLabel.text = L10n.Shaking.title.capitalized
+            counterLabel.text = "Counter - " + mainViewModel.getQuantity()
         }
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             let presentableAnswer = mainViewModel.getPresentableAnswer()
-            self.titleLabel.text = presentableAnswer.answer
+            titleLabel.text = presentableAnswer.answer
         }
     }
     
@@ -65,11 +66,15 @@ class MainViewController: UIViewController {
     }
     
     @objc func settingsButtonTapped() {
+        navigationController?.pushViewController(getSettingsVC(), animated: true)
+    }
+    
+    private func getSettingsVC() -> SettingsViewController {
         let dbManager = mainViewModel.mainModel.getDBManager()
         let model = SettingsModel(dbManager)
         let viewModel = SettingsViewModel(model)
         let settingsVC = SettingsViewController(viewModel)
-        navigationController?.pushViewController(settingsVC, animated: true)
+        return settingsVC
     }
     
 }
@@ -78,6 +83,16 @@ private extension MainViewController {
     
     func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
+        view.addSubview(counterLabel)
+        counterLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(50)
+            make.leading.equalToSuperview().offset(30)
+            make.height.equalTo(20)
+        }
+        counterLabel.text = "Counter - " + mainViewModel.getQuantity()
+        counterLabel.tintColor = .black
+        counterLabel.font = UIFont(name: Constants.fontName, size: 18)
+        
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.center.equalTo(self.view.safeAreaLayoutGuide.snp.center)
@@ -95,7 +110,7 @@ private extension MainViewController {
             make.width.equalTo(179)
             make.height.equalTo(120)
         }
-        imageView.image = UIImage(systemName: "iphone.radiowaves.left.and.right")
+        imageView.image = UIImage(systemName: L10n.Image.shakeIphone)
         imageView.tintColor = .black
     }
     
@@ -105,7 +120,7 @@ private extension MainViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = .clear
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "gearshape"),
+            image: UIImage(systemName: L10n.Image.settings),
             style: .done,
             target: self,
             action: #selector(settingsButtonTapped)

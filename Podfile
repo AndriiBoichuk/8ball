@@ -10,5 +10,6 @@ target '8-ball' do
   pod 'SwiftLint', '~> 0.45.0'
   pod 'SwiftGen', '~> 6.0'
   pod 'SnapKit', '~> 5.0.1'
+  pod 'KeychainSwift', '~> 19.0'
 
 end

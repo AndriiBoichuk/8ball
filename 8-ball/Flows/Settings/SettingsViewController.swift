@@ -10,7 +10,7 @@ import CoreData
 
 class SettingsViewController: UIViewController {
     
-    var settingsViewModel: SettingsViewModel!
+    private let settingsViewModel: SettingsViewModel
     
     private let answerTextField = UITextField()
     private let saveButtonView = UIView()
@@ -51,11 +51,16 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func seeAnswersTouched() {
+
+        navigationController?.pushViewController(getAnswersVC(), animated: true)
+    }
+    
+    private func getAnswersVC() -> AnswersTableViewController {
         let dbManager = settingsViewModel.settingsModel.getDBManager()
         let model = AnswersModel(dbManager)
         let viewModel = AnswersViewModel(model)
-        let answersVC = AnswersTableViewController(viewModel)
-        navigationController?.pushViewController(answersVC, animated: true)
+        let settingsVC = AnswersTableViewController(viewModel)
+        return settingsVC
     }
     
     func turnOffButtonPressed() {
