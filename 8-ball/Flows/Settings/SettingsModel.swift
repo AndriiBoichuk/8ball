@@ -20,6 +20,7 @@ class SettingsModel {
     func addItem(_ answer: String) {
         let newItem = Item(context: databaseManager.context)
         newItem.hardcodedAnswer = answer
+        newItem.date = Date().timeIntervalSince1970
         itemArray.append(newItem)
         
         databaseManager.saveItems()

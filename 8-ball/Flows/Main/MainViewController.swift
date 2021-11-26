@@ -56,8 +56,14 @@ class MainViewController: UIViewController {
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            let presentableAnswer = mainViewModel.getPresentableAnswer()
-            titleLabel.text = presentableAnswer.answer
+            var resultAnswer = String()
+            mainViewModel.getPresentableAnswer { presentableAnswer in
+                resultAnswer = presentableAnswer.answer
+                DispatchQueue.main.async {
+                    self.titleLabel.text = resultAnswer
+                }
+                self.mainViewModel.addAnswer(resultAnswer)
+            }
         }
     }
     

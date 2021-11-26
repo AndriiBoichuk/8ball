@@ -11,6 +11,7 @@
 		7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18314F27036E3C0002DC27 /* SettingsViewController.swift */; };
 		7B1AC0E9274D320500F58290 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1AC0E8274D320500F58290 /* KeychainManager.swift */; };
 		7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E95A02706D6B200C3B8DD /* Constants.swift */; };
+		7B3AAB272750CFC0001C6DE4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */; };
 		7B472148271B4BD500D1D41F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B472147271B4BD500D1D41F /* Reachability.swift */; };
 		7B559271273C5542000CD949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B55926F273C5542000CD949 /* Localizable.strings */; };
 		7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E2D927359A4900AAC475 /* ConnectionManager.swift */; };
@@ -43,6 +44,7 @@
 		7B1AC0E8274D320500F58290 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		7B29FA97273C3A78008E5E4F /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		7B2E95A02706D6B200C3B8DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		7B472147271B4BD500D1D41F /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7B559270273C5542000CD949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B71E2D927359A4900AAC475 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 				7B762B6A273FFC9B0097DF54 /* Strings.swift */,
 			);
 			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		7B3AAB252750CF8E001C6DE4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		7B472146271B4B7E00D1D41F /* SupportingFiles */ = {
@@ -185,6 +195,7 @@
 		7BB066A226FDAAAF008FB062 /* 8-ball */ = {
 			isa = PBXGroup;
 			children = (
+				7B3AAB252750CF8E001C6DE4 /* Controllers */,
 				7B90E1AD27454CDE00C38EE0 /* Flows */,
 				7BB066B926FDAE1C008FB062 /* Model */,
 				7B90E1B227455C3F00C38EE0 /* Managers */,
@@ -386,6 +397,7 @@
 			files = (
 				7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */,
 				7B7653ED2741425A00D472C7 /* AnswersModel.swift in Sources */,
+				7B3AAB272750CFC0001C6DE4 /* MainTabBarController.swift in Sources */,
 				7BEFEFBA270D9AE3006DAAA6 /* AnswerManager.swift in Sources */,
 				7BB066A826FDAAAF008FB062 /* MainViewController.swift in Sources */,
 				7B7653E4274029E500D472C7 /* PresentableAnswer.swift in Sources */,

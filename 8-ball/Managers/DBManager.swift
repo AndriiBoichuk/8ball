@@ -34,6 +34,12 @@ final class DBManager: ManagedObjectConvertible {
         
     }
     
+    func addItem(_ item: Item) {
+        itemArray.append(item)
+        
+        saveItems()
+    }
+    
     func deleteItem(at indexPath: IndexPath) {
         context.delete(itemArray[indexPath.row])
         saveItems()

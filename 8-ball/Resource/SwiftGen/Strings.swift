@@ -35,6 +35,10 @@ internal enum L10n {
     internal static let settings = L10n.tr("Localizable", "image.settings")
     /// iphone.radiowaves.left.and.right
     internal static let shakeIphone = L10n.tr("Localizable", "image.shakeIphone")
+    /// dot.radiowaves.left.and.right
+    internal static let tabIcon1 = L10n.tr("Localizable", "image.tabIcon1")
+    /// character.book.closed
+    internal static let tabIcon2 = L10n.tr("Localizable", "image.tabIcon2")
   }
 
   internal enum Key {
@@ -50,6 +54,13 @@ internal enum L10n {
   internal enum Shaking {
     /// Shaking
     internal static let title = L10n.tr("Localizable", "shaking.title")
+  }
+
+  internal enum Tabbar {
+    /// Shake
+    internal static let title1 = L10n.tr("Localizable", "tabbar.title1")
+    /// Answers
+    internal static let title2 = L10n.tr("Localizable", "tabbar.title2")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

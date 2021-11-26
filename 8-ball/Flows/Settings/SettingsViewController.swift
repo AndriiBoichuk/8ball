@@ -50,18 +50,18 @@ class SettingsViewController: UIViewController {
         answerTextField.text = ""
     }
     
-    @objc func seeAnswersTouched() {
-
-        navigationController?.pushViewController(getAnswersVC(), animated: true)
-    }
-    
-    private func getAnswersVC() -> AnswersTableViewController {
-        let dbManager = settingsViewModel.settingsModel.getDBManager()
-        let model = AnswersModel(dbManager)
-        let viewModel = AnswersViewModel(model)
-        let settingsVC = AnswersTableViewController(viewModel)
-        return settingsVC
-    }
+//    @objc func seeAnswersTouched() {
+//
+//        navigationController?.pushViewController(getAnswersVC(), animated: true)
+//    }
+//
+//    private func getAnswersVC() -> AnswersTableViewController {
+//        let dbManager = settingsViewModel.settingsModel.getDBManager()
+//        let model = AnswersModel(dbManager)
+//        let viewModel = AnswersViewModel(model)
+//        let settingsVC = AnswersTableViewController(viewModel)
+//        return settingsVC
+//    }
     
     func turnOffButtonPressed() {
         saveButton.isEnabled = answerTextField.text == "" ? false : true
@@ -143,18 +143,6 @@ private extension SettingsViewController {
         }
         saveButtonView.layer.cornerRadius = 10
         saveButtonView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
-        view.addSubview(answersButtom)
-        answersButtom.snp.makeConstraints { make in
-            make.leading.equalTo(saveButtonView.snp.trailing).inset(-17.5)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(25)
-            make.width.equalTo(85)
-            make.height.equalTo(50)
-        }
-        answersButtom.addTarget(self, action: #selector(seeAnswersTouched), for: .touchUpInside)
-        answersButtom.setTitle("Answers", for: .normal)
-        answersButtom.setTitleColor(.black, for: .normal)
-        answersButtom.titleLabel?.font = UIFont(name: Constants.fontName, size: 16)
     }
     
     func loadNavBar() {

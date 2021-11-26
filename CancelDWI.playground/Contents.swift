@@ -15,7 +15,3 @@ backgroundQueue.async(execute: dispatchWorkItem)
 backgroundQueue.asyncAfter(deadline: DispatchTime.now() + 2) {
     dispatchWorkItem.cancel()
 }
-
-
-
-

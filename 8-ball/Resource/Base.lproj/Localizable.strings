@@ -14,4 +14,8 @@
 "key.answer" = "hardcodedAnswer";
 "image.shakeIphone" = "iphone.radiowaves.left.and.right";
 "image.settings" = "gearshape";
+"image.tabIcon1" = "dot.radiowaves.left.and.right";
+"image.tabIcon2" = "character.book.closed";
+"tabbar.title1" = "Shake";
+"tabbar.title2" = "Answers";
 

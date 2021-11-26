@@ -22,7 +22,9 @@ class AnswersTableViewController: UIViewController {
         
         loadViews()
         setupTableView()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         answersViewModel.loadItems()
     }
     

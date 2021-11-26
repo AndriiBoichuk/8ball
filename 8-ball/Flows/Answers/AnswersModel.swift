@@ -32,6 +32,7 @@ class AnswersModel {
     
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         itemArray = databaseManager.loadItems(with: request)
+        itemArray.sort(by: { $0.date > $1.date })
     }
     
 }

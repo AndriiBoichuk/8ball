@@ -15,9 +15,12 @@ class MainViewModel {
         self.mainModel = model
     }
     
-    func getPresentableAnswer() -> PresentableAnswer {
-        let answer = mainModel.getAnswer()
-        return answer.toPresentableAnswer()
+    func getPresentableAnswer(completion: @escaping ((PresentableAnswer) -> Void)) {
+        var presentAnswer = PresentableAnswer(answer: "")
+        mainModel.getAnswer { answer in
+            presentAnswer = answer.toPresentableAnswer()
+            completion(presentAnswer)
+        }
     }
     
     func loadItems() {
@@ -26,6 +29,10 @@ class MainViewModel {
     
     func getQuantity() -> String {
         return String(mainModel.getQuantity())
+    }
+    
+    func addAnswer(_ answer: String) {
+        mainModel.addAnswer(answer)
     }
     
 }
