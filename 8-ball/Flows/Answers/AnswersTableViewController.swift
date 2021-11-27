@@ -26,6 +26,7 @@ class AnswersTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         answersViewModel.loadItems()
+        tableView.reloadData()
     }
     
     init(_ viewModel: AnswersViewModel) {
@@ -35,10 +36,6 @@ class AnswersTableViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func reloadTableView() {
-        tableView.reloadData()
     }
     
     func setupTableView() {
@@ -80,7 +77,8 @@ extension AnswersTableViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             answersViewModel.deleteItem(at: indexPath)
-            reloadTableView()
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
         }
     }
 }
@@ -91,7 +89,7 @@ extension AnswersTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         answersViewModel.loadItems(with: searchBar.text!)
-        reloadTableView()
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

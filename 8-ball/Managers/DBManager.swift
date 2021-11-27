@@ -42,8 +42,8 @@ final class DBManager: ManagedObjectConvertible {
     
     func deleteItem(at indexPath: IndexPath) {
         context.delete(itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row)
         saveItems()
-        _ = loadItems()
     }
     
     func saveItems() {
