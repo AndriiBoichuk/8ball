@@ -29,6 +29,8 @@ class MainViewController: UIViewController {
         
         self.becomeFirstResponder() // To get shake gesture
         mainViewModel.loadItems()
+        
+        mainViewModel.setConnectionStatus()
     }
     
     init(_ mainViewModel: MainViewModel) {

@@ -35,4 +35,8 @@ class MainViewModel {
         mainModel.addAnswer(answer)
     }
     
+    func setConnectionStatus() {
+        mainModel.setConnectionStatus()
+    }
+    
 }

@@ -22,14 +22,14 @@ class MainModel {
         self.answerManager = answerManager
         self.keychainManager = keychainManger
         
-        setConnectionStatus()
+//        setConnectionStatus()
     }
     
     func getDBManager() -> DBManager {
         return databaseManager
     }
     
-    private func setConnectionStatus() {
+    func setConnectionStatus() {
         NotificationCenter.default
             .addObserver(self,
                          selector: #selector(connectionManager.statusManager),
@@ -53,9 +53,8 @@ class MainModel {
             if databaseManager.getCount() == 0 {
                 answer = Answer(answer: L10n.Error.Internet.title, type: nil)
             } else {
-                var indexPath = IndexPath()
-                indexPath.row = Int.random(in: 0..<databaseManager.getCount())
-                let hardcodedAnswer = databaseManager.getItem(at: indexPath).hardcodedAnswer!
+                let index = Int.random(in: 0..<databaseManager.getCount())
+                let hardcodedAnswer = databaseManager.getItem(at: index).hardcodedAnswer!
                 answer = Answer(answer: hardcodedAnswer, type: nil)
             }
             completion(answer)

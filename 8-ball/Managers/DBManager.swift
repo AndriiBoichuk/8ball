@@ -67,6 +67,10 @@ final class DBManager: ManagedObjectConvertible {
         return itemArray[indexPath.row]
     }
     
+    func getItem(at index: Int) -> Item {
+        return itemArray[index]
+    }
+    
     func checkRepetiton(at str: String) -> Bool {
         for item in itemArray where item.hardcodedAnswer == str {
             return true
