@@ -10,7 +10,7 @@ import KeychainSwift
 
 class MainModel {
     
-    private var itemArray = [Item]()
+//    private var itemArray = [Item]()
     private let keychainManager: KeychainManager
     private let databaseManager: DBManager
     private let connectionManager: ConnectionManager
@@ -50,10 +50,12 @@ class MainModel {
                 }
             }
         } else {
-            if itemArray.count == 0 {
+            if databaseManager.getCount() == 0 {
                 answer = Answer(answer: L10n.Error.Internet.title, type: nil)
             } else {
-                let hardcodedAnswer = itemArray[Int.random(in: 0..<itemArray.count)].hardcodedAnswer!
+                var indexPath = IndexPath()
+                indexPath.row = Int.random(in: 0..<databaseManager.getCount())
+                let hardcodedAnswer = databaseManager.getItem(at: indexPath).hardcodedAnswer!
                 answer = Answer(answer: hardcodedAnswer, type: nil)
             }
             completion(answer)
@@ -61,7 +63,7 @@ class MainModel {
     }
     
     func loadItems() {
-        itemArray = databaseManager.loadItems()
+        databaseManager.loadItems()
     }
     
     func getQuantity() -> Int {
@@ -79,10 +81,7 @@ class MainModel {
     }
     
     private func checkRepetition(at str: String) -> Bool {
-        for item in itemArray where item.hardcodedAnswer == str {
-            return true
-        }
-        return false
+        return databaseManager.checkRepetiton(at: str)
     }
     
 }

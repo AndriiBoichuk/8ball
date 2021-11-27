@@ -76,8 +76,9 @@ extension AnswersTableViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
+
             answersViewModel.deleteItem(at: indexPath)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
+            answersViewModel.loadItems()
             tableView.reloadData()
         }
     }

@@ -9,7 +9,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,7 @@ class MainTabBarController: UITabBarController {
     }
     
     private func getDBManager() -> DBManager {
+        context.automaticallyMergesChangesFromParent = true
         return DBManager(context: context)
     }
     

@@ -10,8 +10,6 @@ import CoreData
 
 class AnswersModel {
     
-    private var itemArray = [Item]()
-    
     private var databaseManager: DBManager!
     
     init(_ dbManager: DBManager) {
@@ -19,11 +17,11 @@ class AnswersModel {
     }
     
     func getCount() -> Int {
-        return itemArray.count
+        return databaseManager.getCount()
     }
     
     func getItem(at indexPath: IndexPath) -> Item {
-        return itemArray[indexPath.row]
+        return databaseManager.getItem(at: indexPath)
     }
     
     func deleteItem(at indexPath: IndexPath) {
@@ -31,8 +29,7 @@ class AnswersModel {
     }
     
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        itemArray = databaseManager.loadItems(with: request)
-        itemArray.sort(by: { $0.date > $1.date })
+        databaseManager.loadItems(with: request)
     }
     
 }
