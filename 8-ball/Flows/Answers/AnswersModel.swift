@@ -28,8 +28,8 @@ class AnswersModel {
         databaseManager.deleteItem(at: indexPath)
     }
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        databaseManager.loadItems(with: request)
+    func loadItems() {
+        databaseManager.loadItems()
     }
     
 }

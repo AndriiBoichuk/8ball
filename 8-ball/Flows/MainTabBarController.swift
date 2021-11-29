@@ -8,8 +8,8 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+
+    private let dbManager = DBManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController {
 
         let keychainManager = KeychainManager()
         
-        let model = MainModel(getDBManager(), connectionManager, answerManager, keychainManager)
+        let model = MainModel(dbManager, connectionManager, answerManager, keychainManager)
         
         let viewModel = MainViewModel(model)
         
@@ -38,18 +38,13 @@ class MainTabBarController: UITabBarController {
     }
     
     private func createAnswersTVC() -> AnswersTableViewController {
-        let model = AnswersModel(getDBManager())
+        let model = AnswersModel(dbManager)
         let viewModel = AnswersViewModel(model)
         let answersTVC = AnswersTableViewController(viewModel)
         
         answersTVC.tabBarItem = UITabBarItem(title: L10n.Tabbar.title2, image: UIImage(systemName: L10n.Image.tabIcon2), tag: 1)
         
         return answersTVC
-    }
-    
-    private func getDBManager() -> DBManager {
-        context.automaticallyMergesChangesFromParent = true
-        return DBManager(context: context)
     }
     
 }

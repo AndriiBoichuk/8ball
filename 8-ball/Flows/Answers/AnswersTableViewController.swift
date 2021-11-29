@@ -11,14 +11,11 @@ import CoreData
 class AnswersTableViewController: UIViewController {
     
     private let answersViewModel: AnswersViewModel
-    
-    private let searchBar = UISearchBar()
+
     private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchBar.delegate = self
         
         loadViews()
         setupTableView()
@@ -83,33 +80,10 @@ extension AnswersTableViewController: UITableViewDataSource, UITableViewDelegate
     }
 }
 
-// MARK: - Search Bar Methods
-
-extension AnswersTableViewController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        answersViewModel.loadItems(with: searchBar.text!)
-        tableView.reloadData()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
-            answersViewModel.loadItems()
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
-        }
-    }
-}
-
 private extension AnswersTableViewController {
     
     func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
-        view.addSubview(searchBar)
-        searchBar.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
-        }
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in

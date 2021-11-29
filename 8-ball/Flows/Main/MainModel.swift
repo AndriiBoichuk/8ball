@@ -10,7 +10,6 @@ import KeychainSwift
 
 class MainModel {
     
-//    private var itemArray = [Item]()
     private let keychainManager: KeychainManager
     private let databaseManager: DBManager
     private let connectionManager: ConnectionManager
@@ -21,8 +20,6 @@ class MainModel {
         self.connectionManager = connectionManager
         self.answerManager = answerManager
         self.keychainManager = keychainManger
-        
-//        setConnectionStatus()
     }
     
     func getDBManager() -> DBManager {
@@ -71,7 +68,7 @@ class MainModel {
     
     func addAnswer(_ answer: String) {
         if !checkRepetition(at: answer) {
-            let newItem = Item(context: databaseManager.context)
+            let newItem = Item(context: databaseManager.getContext())
             newItem.hardcodedAnswer = answer
             newItem.date = Date().timeIntervalSince1970
 

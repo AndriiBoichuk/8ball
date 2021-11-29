@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             titleLabel.text = L10n.Shaking.title.capitalized
-            counterLabel.text = "Counter - " + mainViewModel.getQuantity()
+            counterLabel.text = L10n.Counter.title + mainViewModel.getQuantity()
         }
     }
     
@@ -97,7 +97,7 @@ private extension MainViewController {
             make.leading.equalToSuperview().offset(30)
             make.height.equalTo(20)
         }
-        counterLabel.text = "Counter - " + mainViewModel.getQuantity()
+        counterLabel.text = L10n.Counter.title + mainViewModel.getQuantity()
         counterLabel.tintColor = .black
         counterLabel.font = UIFont(name: Constants.fontName, size: 18)
         

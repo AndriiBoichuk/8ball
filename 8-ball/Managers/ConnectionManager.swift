@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 final class ConnectionManager {
     
     var isInternetConnection: Bool = true
-
+    
     // MARK: - Check Internet Connection
     @objc func statusManager(_ notification: Notification) {
         updateConnectionStatus()

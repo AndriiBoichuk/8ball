@@ -6,10 +6,11 @@
 //
 
 import CoreData
+import UIKit
 
 protocol ManagedObjectConvertible {
 
-    func loadItems(with request: NSFetchRequest<Item>)
+    func loadItems()
     func deleteItem(at indexPath: IndexPath)
     func saveItems()
     
@@ -17,20 +18,44 @@ protocol ManagedObjectConvertible {
 
 final class DBManager: ManagedObjectConvertible {
     
-    private var itemArray = [Item]()
-    let context: NSManagedObjectContext
+    private lazy var context: NSManagedObjectContext = {
+
+        let container = NSPersistentContainer(name: L10n.PersistentContainer.name)
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container.viewContext
+    }()
     
-    init(context: NSManagedObjectContext) {
-        self.context = context
+    private lazy var request: NSFetchRequest<Item> = {
+        return Item.fetchRequest()
+    }()
+    
+    private var itemArray = [Item]()
+    
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillTerminate(notification:)), name: UIApplication.willTerminateNotification, object: nil)
     }
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
-        context.perform {
-            do {
-                self.itemArray = try self.context.fetch(request)
-                self.itemArray.sort(by: { $0.date > $1.date })
-            } catch {
-                fatalError("Error loading items \(error)")
+    @objc func appWillTerminate(notification: Notification) {
+        saveItems()
+    }
+    
+    func getContext() -> NSManagedObjectContext {
+        return context
+    }
+    
+    func loadItems() {
+        if context.hasChanges {
+            context.perform {
+                do {
+                    self.itemArray = try self.context.fetch(self.request)
+                    self.itemArray.sort(by: { $0.date > $1.date })
+                } catch {
+                    fatalError("Error loading items \(error)")
+                }
             }
         }
     }
