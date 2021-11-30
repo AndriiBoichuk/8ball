@@ -30,7 +30,7 @@ final class DBManager: ManagedObjectConvertible {
                     fatalError("Unresolved error \(error), \(error.userInfo)")
                 }
             })
-            return container.viewContext
+            return container.newBackgroundContext()
         }()
         
         NotificationCenter.default.addObserver(self, selector: #selector(appWillTerminate(notification:)), name: UIApplication.willTerminateNotification, object: nil)
