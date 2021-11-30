@@ -29,6 +29,8 @@ class MainViewController: UIViewController {
         
         self.becomeFirstResponder() // To get shake gesture
         mainViewModel.loadItems()
+        
+        mainViewModel.setConnectionStatus()
     }
     
     init(_ mainViewModel: MainViewModel) {
@@ -50,14 +52,20 @@ class MainViewController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             titleLabel.text = L10n.Shaking.title.capitalized
-            counterLabel.text = "Counter - " + mainViewModel.getQuantity()
+            counterLabel.text = L10n.Counter.title + mainViewModel.getQuantity()
         }
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            let presentableAnswer = mainViewModel.getPresentableAnswer()
-            titleLabel.text = presentableAnswer.answer
+            var resultAnswer = String()
+            mainViewModel.getPresentableAnswer { presentableAnswer in
+                resultAnswer = presentableAnswer.answer
+                DispatchQueue.main.async {
+                    self.titleLabel.text = resultAnswer
+                }
+                self.mainViewModel.addAnswer(resultAnswer)
+            }
         }
     }
     
@@ -89,7 +97,7 @@ private extension MainViewController {
             make.leading.equalToSuperview().offset(30)
             make.height.equalTo(20)
         }
-        counterLabel.text = "Counter - " + mainViewModel.getQuantity()
+        counterLabel.text = L10n.Counter.title + mainViewModel.getQuantity()
         counterLabel.tintColor = .black
         counterLabel.font = UIFont(name: Constants.fontName, size: 18)
         

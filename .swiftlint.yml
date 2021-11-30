@@ -5,5 +5,6 @@ disabled_rules:
 - trailing_whitespace
 - force_cast
 excluded:
-- 8-ball/SupportingFiles/Reachability.swif
+- 8-ball/SupportingFiles/Reachability.swift
 - Pods/SnapKit/Source
+- Pods/KeychainSwift/Sources

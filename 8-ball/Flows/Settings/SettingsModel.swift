@@ -9,8 +9,6 @@ import Foundation
 
 class SettingsModel {
     
-    private var itemArray = [Item]()
-    
     private var databaseManager: DBManager!
     
     init(_ dbManager: DBManager) {
@@ -18,15 +16,16 @@ class SettingsModel {
     }
     
     func addItem(_ answer: String) {
-        let newItem = Item(context: databaseManager.context)
+        let newItem = Item(context: databaseManager.getContext())
         newItem.hardcodedAnswer = answer
-        itemArray.append(newItem)
+        newItem.date = Date().timeIntervalSince1970
+        databaseManager.addItem(newItem)
         
         databaseManager.saveItems()
     }
     
     func loadItems() {
-        itemArray = databaseManager.loadItems()
+        databaseManager.loadItems()
     }
     
     func getDBManager() -> DBManager {

@@ -10,8 +10,19 @@
 "shaking.title" = "Shaking";
 "canceled.error.title" = "Motion cancelled";
 "error.internet.title" = "Check Internet";
+"answers.title" = "Hardcoded answers";
+"placeholder.title" = "Type something...";
+"settings.title" = "Settings";
+"saveButton.title" = "Save";
+"counter.title" = "Counter -";
+"persistentContainer.name" = "8-ball";
 "cell.identifier" = "ItemCell";
 "key.answer" = "hardcodedAnswer";
 "image.shakeIphone" = "iphone.radiowaves.left.and.right";
 "image.settings" = "gearshape";
+"image.tabIcon1" = "dot.radiowaves.left.and.right";
+"image.tabIcon2" = "character.book.closed";
+"image.wifi" = "wifi.slash";
+"tabbar.title1" = "Shake";
+"tabbar.title2" = "Answers";
 

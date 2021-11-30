@@ -11,6 +11,11 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum Answers {
+    /// Hardcoded answers
+    internal static let title = L10n.tr("Localizable", "answers.title")
+  }
+
   internal enum Canceled {
     internal enum Error {
       /// Motion cancelled
@@ -21,6 +26,11 @@ internal enum L10n {
   internal enum Cell {
     /// ItemCell
     internal static let identifier = L10n.tr("Localizable", "cell.identifier")
+  }
+
+  internal enum Counter {
+    /// Counter -
+    internal static let title = L10n.tr("Localizable", "counter.title")
   }
 
   internal enum Error {
@@ -35,11 +45,37 @@ internal enum L10n {
     internal static let settings = L10n.tr("Localizable", "image.settings")
     /// iphone.radiowaves.left.and.right
     internal static let shakeIphone = L10n.tr("Localizable", "image.shakeIphone")
+    /// dot.radiowaves.left.and.right
+    internal static let tabIcon1 = L10n.tr("Localizable", "image.tabIcon1")
+    /// character.book.closed
+    internal static let tabIcon2 = L10n.tr("Localizable", "image.tabIcon2")
+    /// wifi.slash
+    internal static let wifi = L10n.tr("Localizable", "image.wifi")
   }
 
   internal enum Key {
     /// hardcodedAnswer
     internal static let answer = L10n.tr("Localizable", "key.answer")
+  }
+
+  internal enum PersistentContainer {
+    /// 8-ball
+    internal static let name = L10n.tr("Localizable", "persistentContainer.name")
+  }
+
+  internal enum Placeholder {
+    /// Type something...
+    internal static let title = L10n.tr("Localizable", "placeholder.title")
+  }
+
+  internal enum SaveButton {
+    /// Save
+    internal static let title = L10n.tr("Localizable", "saveButton.title")
+  }
+
+  internal enum Settings {
+    /// Settings
+    internal static let title = L10n.tr("Localizable", "settings.title")
   }
 
   internal enum Shake {
@@ -50,6 +86,13 @@ internal enum L10n {
   internal enum Shaking {
     /// Shaking
     internal static let title = L10n.tr("Localizable", "shaking.title")
+  }
+
+  internal enum Tabbar {
+    /// Shake
+    internal static let title1 = L10n.tr("Localizable", "tabbar.title1")
+    /// Answers
+    internal static let title2 = L10n.tr("Localizable", "tabbar.title2")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

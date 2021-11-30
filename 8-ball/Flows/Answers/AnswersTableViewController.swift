@@ -11,19 +11,19 @@ import CoreData
 class AnswersTableViewController: UIViewController {
     
     private let answersViewModel: AnswersViewModel
-    
-    private let searchBar = UISearchBar()
+
     private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.delegate = self
-        
         loadViews()
         setupTableView()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         answersViewModel.loadItems()
+        tableView.reloadData()
     }
     
     init(_ viewModel: AnswersViewModel) {
@@ -33,10 +33,6 @@ class AnswersTableViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func reloadTableView() {
-        tableView.reloadData()
     }
     
     func setupTableView() {
@@ -78,26 +74,8 @@ extension AnswersTableViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             answersViewModel.deleteItem(at: indexPath)
-            reloadTableView()
-        }
-    }
-}
-
-// MARK: - Search Bar Methods
-
-extension AnswersTableViewController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        answersViewModel.loadItems(with: searchBar.text!)
-        reloadTableView()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
             answersViewModel.loadItems()
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
+            tableView.reloadData()
         }
     }
 }
@@ -106,10 +84,6 @@ private extension AnswersTableViewController {
     
     func loadViews() {
         view.backgroundColor = UIColor(asset: Asset.colorBrand)
-        view.addSubview(searchBar)
-        searchBar.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
-        }
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in

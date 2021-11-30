@@ -50,19 +50,6 @@ class SettingsViewController: UIViewController {
         answerTextField.text = ""
     }
     
-    @objc func seeAnswersTouched() {
-
-        navigationController?.pushViewController(getAnswersVC(), animated: true)
-    }
-    
-    private func getAnswersVC() -> AnswersTableViewController {
-        let dbManager = settingsViewModel.settingsModel.getDBManager()
-        let model = AnswersModel(dbManager)
-        let viewModel = AnswersViewModel(model)
-        let settingsVC = AnswersTableViewController(viewModel)
-        return settingsVC
-    }
-    
     func turnOffButtonPressed() {
         saveButton.isEnabled = answerTextField.text == "" ? false : true
     }
@@ -97,7 +84,7 @@ private extension SettingsViewController {
             make.width.equalTo(120)
             make.height.equalTo(90)
         }
-        imageView.image = UIImage(systemName: "wifi.slash")
+        imageView.image = UIImage(systemName: L10n.Image.wifi)
         imageView.tintColor = .black
         
         view.addSubview(titleLabel)
@@ -106,7 +93,7 @@ private extension SettingsViewController {
             make.top.equalTo(imageView.snp.bottom).offset(26)
             make.height.equalTo(40)
         }
-        titleLabel.text = "Hardcoded answers"
+        titleLabel.text = L10n.Answers.title
         titleLabel.font = UIFont(name: Constants.fontName, size: 24)
         
         view.addSubview(answerTextField)
@@ -119,7 +106,7 @@ private extension SettingsViewController {
         answerTextField.delegate = self
         answerTextField.layer.cornerRadius = 10
         answerTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
-        answerTextField.placeholder = "Type something..."
+        answerTextField.placeholder = L10n.Placeholder.title
         answerTextField.backgroundColor = .white
         
         saveButtonView.addSubview(saveButton)
@@ -129,7 +116,7 @@ private extension SettingsViewController {
             make.height.equalTo(55)
         }
         saveButton.addTarget(self, action: #selector(saveTouched), for: .touchUpInside)
-        saveButton.setTitle("Add", for: .normal)
+        saveButton.setTitle(L10n.SaveButton.title, for: .normal)
         saveButton.setTitleColor(.black, for: .normal)
         saveButton.titleLabel?.font = UIFont(name: Constants.fontName, size: 18)
         saveButton.isEnabled = false
@@ -143,18 +130,6 @@ private extension SettingsViewController {
         }
         saveButtonView.layer.cornerRadius = 10
         saveButtonView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
-        view.addSubview(answersButtom)
-        answersButtom.snp.makeConstraints { make in
-            make.leading.equalTo(saveButtonView.snp.trailing).inset(-17.5)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(25)
-            make.width.equalTo(85)
-            make.height.equalTo(50)
-        }
-        answersButtom.addTarget(self, action: #selector(seeAnswersTouched), for: .touchUpInside)
-        answersButtom.setTitle("Answers", for: .normal)
-        answersButtom.setTitleColor(.black, for: .normal)
-        answersButtom.titleLabel?.font = UIFont(name: Constants.fontName, size: 16)
     }
     
     func loadNavBar() {
@@ -166,7 +141,7 @@ private extension SettingsViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = .clear
-        navigationItem.title = "Settings"
+        navigationItem.title = L10n.Settings.title
     }
     
 }
