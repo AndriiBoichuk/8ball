@@ -18,24 +18,21 @@ protocol ManagedObjectConvertible {
 
 final class DBManager: ManagedObjectConvertible {
     
-    private lazy var context: NSManagedObjectContext = {
-
-        let container = NSPersistentContainer(name: L10n.PersistentContainer.name)
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container.viewContext
-    }()
-    
-    private lazy var request: NSFetchRequest<Item> = {
-        return Item.fetchRequest()
-    }()
+    private var context: NSManagedObjectContext
     
     private var itemArray = [Item]()
     
     init() {
+        context = {
+            let container = NSPersistentContainer(name: L10n.PersistentContainer.name)
+            container.loadPersistentStores(completionHandler: { (_, error) in
+                if let error = error as NSError? {
+                    fatalError("Unresolved error \(error), \(error.userInfo)")
+                }
+            })
+            return container.viewContext
+        }()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(appWillTerminate(notification:)), name: UIApplication.willTerminateNotification, object: nil)
     }
     
@@ -51,7 +48,8 @@ final class DBManager: ManagedObjectConvertible {
         if context.hasChanges {
             context.perform {
                 do {
-                    self.itemArray = try self.context.fetch(self.request)
+                    let request = Item.fetchRequest()
+                    self.itemArray = try self.context.fetch(request)
                     self.itemArray.sort(by: { $0.date > $1.date })
                 } catch {
                     fatalError("Error loading items \(error)")
