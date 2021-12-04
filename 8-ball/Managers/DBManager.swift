@@ -30,7 +30,7 @@ final class DBManager: ManagedObjectConvertible {
                     fatalError("Unresolved error \(error), \(error.userInfo)")
                 }
             })
-            return container.newBackgroundContext()
+            return container.viewContext
         }()
         
         NotificationCenter.default.addObserver(self, selector: #selector(appWillTerminate(notification:)), name: UIApplication.willTerminateNotification, object: nil)
@@ -45,15 +45,13 @@ final class DBManager: ManagedObjectConvertible {
     }
     
     func loadItems() {
-        if context.hasChanges {
-            context.perform {
-                do {
-                    let request = Item.fetchRequest()
-                    self.itemArray = try self.context.fetch(request)
-                    self.itemArray.sort(by: { $0.date > $1.date })
-                } catch {
-                    fatalError("Error loading items \(error)")
-                }
+        context.perform {
+            do {
+                let request = Item.fetchRequest()
+                self.itemArray = try self.context.fetch(request)
+                self.itemArray.sort(by: { $0.date > $1.date })
+            } catch {
+                fatalError("Error loading items \(error)")
             }
         }
     }
