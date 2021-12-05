@@ -17,9 +17,8 @@ class MainViewController: UIViewController {
     private let imageView = UIImageView()
     private let counterLabel = UILabel()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
+    private var isThreeSecPassed = false
+    private var isResponseReceived = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,11 +57,18 @@ class MainViewController: UIViewController {
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
+            DispatchQueue.main.async {
+                self.setTimer()
+                self.animateImage()
+                self.isThreeSecPassed = false
+                self.isResponseReceived = false
+            }
             var resultAnswer = String()
             mainViewModel.getPresentableAnswer { presentableAnswer in
                 resultAnswer = presentableAnswer.answer
                 DispatchQueue.main.async {
                     self.titleLabel.text = resultAnswer
+                    self.isResponseReceived = true
                 }
                 self.mainViewModel.addAnswer(resultAnswer)
             }
@@ -136,4 +142,32 @@ private extension MainViewController {
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
+}
+
+private extension MainViewController {
+    func animateImage() {
+        let transform = imageView.transform
+        UIView.animate(withDuration: 0.2,
+                       delay: 0,
+                       options: .curveEaseInOut) {
+            self.imageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.2,
+                           delay: 0,
+                           options: .curveEaseInOut,
+                           animations: {
+                self.imageView.transform = transform
+            }) { _ in
+                if !self.isResponseReceived || !self.isThreeSecPassed {
+                    self.animateImage()
+                }
+            }
+        }
+    }
+    
+    func setTimer() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.isThreeSecPassed = true
+        }
+    }
 }
