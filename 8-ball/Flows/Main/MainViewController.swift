@@ -67,7 +67,8 @@ class MainViewController: UIViewController {
             mainViewModel.getPresentableAnswer { presentableAnswer in
                 resultAnswer = presentableAnswer.answer
                 DispatchQueue.main.async {
-                    self.titleLabel.text = resultAnswer
+//                    self.titleLabel.text = resultAnswer
+                    self.setAnswer(answer: resultAnswer)
                     self.isResponseReceived = true
                 }
                 self.mainViewModel.addAnswer(resultAnswer)
@@ -169,6 +170,12 @@ private extension MainViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.isThreeSecPassed = true
         }
+    }
+    
+    func setAnswer(answer: String) {
+        UIView.transition(with: titleLabel, duration: 0.2, options: .transitionFlipFromLeft, animations: {
+            self.titleLabel.text = answer
+        }, completion: nil)
     }
     
 }
