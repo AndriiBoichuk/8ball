@@ -67,7 +67,6 @@ class MainViewController: UIViewController {
             mainViewModel.getPresentableAnswer { presentableAnswer in
                 resultAnswer = presentableAnswer.answer
                 DispatchQueue.main.async {
-//                    self.titleLabel.text = resultAnswer
                     self.setAnswer(answer: resultAnswer)
                     self.isResponseReceived = true
                 }
