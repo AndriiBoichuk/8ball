@@ -6,20 +6,27 @@
 //
 
 import Foundation
+import RxSwift
 
 class MainViewModel {
     
     var mainModel: MainModel
     
+    private let disposeBag = DisposeBag()
+    
     init(_ model: MainModel) {
         self.mainModel = model
     }
     
-    func getPresentableAnswer(completion: @escaping ((PresentableAnswer) -> Void)) {
-        var presentAnswer = PresentableAnswer(answer: "")
-        mainModel.getAnswer { answer in
-            presentAnswer = answer.toPresentableAnswer()
-            completion(presentAnswer)
+    func getPresentableAnswer() -> Observable<PresentableAnswer> {
+//        var presentAnswer = PresentableAnswer(answer: "")
+        return Observable.create {observer in
+            self.mainModel.getAnswer()
+                .observe(on: MainScheduler.asyncInstance)
+                .subscribe { answer in
+                    observer.on(.next(answer.toPresentableAnswer()))
+                }.disposed(by: self.disposeBag)
+            return Disposables.create()
         }
     }
     

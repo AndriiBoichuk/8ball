@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import CoreData
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class MainViewController: UIViewController {
     
@@ -20,11 +21,18 @@ class MainViewController: UIViewController {
     private var isThreeSecPassed = false
     private var isResponseReceived = false
     
+    private let disposeBag = DisposeBag()
+    
+    private var textTitle = BehaviorRelay(value: "")
+    private var textCounter = BehaviorRelay(value: "")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadViews()
         loadNavBar()
+        
+        setupBindings()
         
         self.becomeFirstResponder() // To get shake gesture
         mainViewModel.loadItems()
@@ -41,6 +49,19 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupBindings() {
+        textTitle.asObservable()
+            .filter {!$0.isEmpty}
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        textCounter.asObservable()
+            .filter {!$0.isEmpty}
+            .bind(to: counterLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+    }
+    
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
         return true
@@ -50,8 +71,8 @@ class MainViewController: UIViewController {
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            titleLabel.text = L10n.Shaking.title.capitalized
-            counterLabel.text = L10n.Counter.title + mainViewModel.getQuantity()
+            textTitle.accept(L10n.Shaking.title.capitalized)
+            textCounter.accept(L10n.Counter.title + mainViewModel.getQuantity())
         }
     }
     
@@ -64,19 +85,24 @@ class MainViewController: UIViewController {
                 self.isResponseReceived = false
             }
             var resultAnswer = String()
-            mainViewModel.getPresentableAnswer { presentableAnswer in
-                resultAnswer = presentableAnswer.answer
-                DispatchQueue.main.async {
-                    self.setAnswer(answer: resultAnswer)
-                    self.isResponseReceived = true
-                }
-                self.mainViewModel.addAnswer(resultAnswer)
-            }
+            mainViewModel.getPresentableAnswer()
+                .observe(on: MainScheduler.asyncInstance)
+                .subscribe { presentableAnswer in
+                    resultAnswer = presentableAnswer.answer
+                    DispatchQueue.main.async {
+                        self.setAnswer(answer: resultAnswer)
+                        self.isResponseReceived = true
+                    }
+                    self.mainViewModel.addAnswer(resultAnswer)
+                } onError: { error in
+                    print(error)
+                }.disposed(by: self.disposeBag)
         }
+        
     }
     
     override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        titleLabel.text = L10n.Canceled.Error.title.capitalized
+        textTitle.accept(L10n.Canceled.Error.title.capitalized)
     }
     
     @objc func settingsButtonTapped() {
@@ -173,7 +199,7 @@ private extension MainViewController {
     
     func setAnswer(answer: String) {
         UIView.transition(with: titleLabel, duration: 0.2, options: .transitionFlipFromLeft, animations: {
-            self.titleLabel.text = answer
+            self.textTitle.accept(answer)
         }, completion: nil)
     }
     
