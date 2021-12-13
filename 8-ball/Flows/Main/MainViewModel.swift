@@ -19,15 +19,7 @@ class MainViewModel {
     }
     
     func getPresentableAnswer() -> Observable<PresentableAnswer> {
-//        var presentAnswer = PresentableAnswer(answer: "")
-        return Observable.create {observer in
-            self.mainModel.getAnswer()
-                .observe(on: MainScheduler.asyncInstance)
-                .subscribe { answer in
-                    observer.on(.next(answer.toPresentableAnswer()))
-                }.disposed(by: self.disposeBag)
-            return Disposables.create()
-        }
+        return mainModel.getAnswer().map {$0.toPresentableAnswer()}
     }
     
     func loadItems() {

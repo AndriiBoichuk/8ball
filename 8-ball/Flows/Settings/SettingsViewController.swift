@@ -44,8 +44,8 @@ class SettingsViewController: UIViewController {
     
     private func setupBindings() {
         saveButton.rx.tap
-            .subscribe(onNext: {
-                self.saveTouched()
+            .subscribe(onNext: { [weak self] _ in
+                self?.saveTouched()
             }) .disposed(by: disposeBag)
     }
     

@@ -39,26 +39,31 @@ class MainModel {
     }
     
     func getAnswer() -> Observable<Answer> {
-        return Observable.create { observer in
+        return Observable.create { [weak self] observer in
             var answer = Answer(answer: "", type: nil)
-            if self.connectionManager.isInternetConnection {
-                self.answerManager.getAnswer()
-                    .observe(on: MainScheduler.asyncInstance)
-                    .subscribe { answerData in
-                        observer.on(.next(answerData.toAnswer()))
-                    } onError: { (error) in
-                        print(error)
-                    }
-                    .disposed(by: self.disposeBag)
-                return Disposables.create()
-            } else {
-                if self.databaseManager.getCount() == 0 {
-                    answer = Answer(answer: L10n.Error.Internet.title, type: nil)
+            if self != nil {
+                if self!.connectionManager.isInternetConnection {
+                    self!.answerManager.getAnswer()
+                        .observe(on: MainScheduler.asyncInstance)
+                        .subscribe { answerData in
+                            observer.on(.next(answerData.toAnswer()))
+                        } onError: { (error) in
+                            observer.on(.error(error))
+                        }
+                        .disposed(by: self!.disposeBag)
+                    return Disposables.create()
                 } else {
-                    let index = Int.random(in: 0..<self.databaseManager.getCount())
-                    let hardcodedAnswer = self.databaseManager.getItem(at: index).hardcodedAnswer!
-                    answer = Answer(answer: hardcodedAnswer, type: nil)
+                    if self?.databaseManager.getCount() == 0 {
+                        answer = Answer(answer: L10n.Error.Internet.title, type: nil)
+                    } else {
+                        let index = Int.random(in: 0..<self!.databaseManager.getCount())
+                        let hardcodedAnswer = self!.databaseManager.getItem(at: index).hardcodedAnswer!
+                        answer = Answer(answer: hardcodedAnswer, type: nil)
+                    }
+                    observer.on(.next(answer))
+                    return Disposables.create()
                 }
+            } else {
                 observer.on(.next(answer))
                 return Disposables.create()
             }

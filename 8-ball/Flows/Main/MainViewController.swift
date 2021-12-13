@@ -71,8 +71,8 @@ class MainViewController: UIViewController {
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            textTitle.accept(L10n.Shaking.title.capitalized)
-            textCounter.accept(L10n.Counter.title + mainViewModel.getQuantity())
+            titleLabel.text = L10n.Shaking.title.capitalized
+            titleLabel.text = L10n.Counter.title + mainViewModel.getQuantity()
         }
     }
     
@@ -87,13 +87,12 @@ class MainViewController: UIViewController {
             var resultAnswer = String()
             mainViewModel.getPresentableAnswer()
                 .observe(on: MainScheduler.asyncInstance)
-                .subscribe { presentableAnswer in
+                .subscribe { [weak self] presentableAnswer in
                     resultAnswer = presentableAnswer.answer
-                    DispatchQueue.main.async {
-                        self.setAnswer(answer: resultAnswer)
-                        self.isResponseReceived = true
-                    }
-                    self.mainViewModel.addAnswer(resultAnswer)
+                    self?.setAnswer(answer: resultAnswer)
+                    self?.isResponseReceived = true
+                    
+                    self?.mainViewModel.addAnswer(resultAnswer)
                 } onError: { error in
                     print(error)
                 }.disposed(by: self.disposeBag)
