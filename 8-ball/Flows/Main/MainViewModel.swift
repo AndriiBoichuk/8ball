@@ -6,21 +6,20 @@
 //
 
 import Foundation
+import RxSwift
 
 class MainViewModel {
     
     var mainModel: MainModel
     
+    private let disposeBag = DisposeBag()
+    
     init(_ model: MainModel) {
         self.mainModel = model
     }
     
-    func getPresentableAnswer(completion: @escaping ((PresentableAnswer) -> Void)) {
-        var presentAnswer = PresentableAnswer(answer: "")
-        mainModel.getAnswer { answer in
-            presentAnswer = answer.toPresentableAnswer()
-            completion(presentAnswer)
-        }
+    func getPresentableAnswer() -> Observable<PresentableAnswer> {
+        return mainModel.getAnswer().map {$0.toPresentableAnswer()}
     }
     
     func loadItems() {

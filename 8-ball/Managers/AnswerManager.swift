@@ -6,34 +6,39 @@
 //
 
 import Foundation
+import RxSwift
 
 struct AnswerManager {
+    
+    private enum FetchError: Error {
+        case failedResponse(URLResponse?)
+        case failedJSON(Error)
+    }
 
     private let session = URLSession(configuration: .default)
     
-    func getAnswer(completion: @escaping (Magic?, Error?) -> Void) {
+    func getAnswer() -> Observable<Magic> {
 
         let urlString = "https://8ball.delegator.com/magic/JSON/Example"
         // Create URL
         let url = URL(string: urlString)!
         
-        // Give the session a task
-        let task = session.dataTask(with: url) { data, _, error in
-            if error != nil {
-                completion(nil, error)
-            }
-            if let safeData = data {
-                if let item = parseJSON(answerData: safeData) {
-                    DispatchQueue.main.async {
-                        completion(item, nil)
-                    }
+        let request = URLRequest(url: url)
+        return URLSession.shared.rx.response(request: request)
+            .map { result -> Data in
+                guard result.response.statusCode == 200 else {
+                    throw FetchError.failedResponse(result.response)
+                }
+                return result.data
+            }.map { data in
+                if let answer = parseJSON(answerData: data) {
+                    return answer
                 } else {
-                    completion(nil, nil)
+                    return Magic(question: "", answer: "", type: "")
                 }
             }
-        }
-        // Start the task
-        task.resume()
+            .observe(on: MainScheduler.instance)
+            .asObservable()
     }
 
     private func parseJSON(answerData: Data) -> Magic? {

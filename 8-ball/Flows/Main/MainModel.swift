@@ -7,6 +7,7 @@
 
 import Foundation
 import KeychainSwift
+import RxSwift
 
 class MainModel {
     
@@ -14,6 +15,8 @@ class MainModel {
     private let databaseManager: DBManager
     private let connectionManager: ConnectionManager
     private let answerManager: AnswerManager
+    
+    private let disposeBag = DisposeBag()
     
     init(_ dbManager: DBManager, _ connectionManager: ConnectionManager, _ answerManager: AnswerManager, _ keychainManger: KeychainManager) {
         self.databaseManager = dbManager
@@ -35,26 +38,35 @@ class MainModel {
         connectionManager.updateConnectionStatus()
     }
     
-    func getAnswer(completion: @escaping ((Answer) -> Void)) {
-        var answer = Answer(answer: "", type: nil)
-        if connectionManager.isInternetConnection {
-            answerManager.getAnswer { magic, error in
-                if let safeMagic = magic {
-                    answer = safeMagic.toAnswer()
-                    completion(answer)
+    func getAnswer() -> Observable<Answer> {
+        return Observable.create { [weak self] observer in
+            var answer = Answer(answer: "", type: nil)
+            if self != nil {
+                if self!.connectionManager.isInternetConnection {
+                    self!.answerManager.getAnswer()
+                        .observe(on: MainScheduler.asyncInstance)
+                        .subscribe { answerData in
+                            observer.on(.next(answerData.toAnswer()))
+                        } onError: { (error) in
+                            observer.on(.error(error))
+                        }
+                        .disposed(by: self!.disposeBag)
+                    return Disposables.create()
                 } else {
-                    print(error ?? "Error loading")
+                    if self?.databaseManager.getCount() == 0 {
+                        answer = Answer(answer: L10n.Error.Internet.title, type: nil)
+                    } else {
+                        let index = Int.random(in: 0..<self!.databaseManager.getCount())
+                        let hardcodedAnswer = self!.databaseManager.getItem(at: index).hardcodedAnswer!
+                        answer = Answer(answer: hardcodedAnswer, type: nil)
+                    }
+                    observer.on(.next(answer))
+                    return Disposables.create()
                 }
-            }
-        } else {
-            if databaseManager.getCount() == 0 {
-                answer = Answer(answer: L10n.Error.Internet.title, type: nil)
             } else {
-                let index = Int.random(in: 0..<databaseManager.getCount())
-                let hardcodedAnswer = databaseManager.getItem(at: index).hardcodedAnswer!
-                answer = Answer(answer: hardcodedAnswer, type: nil)
+                observer.on(.next(answer))
+                return Disposables.create()
             }
-            completion(answer)
         }
     }
     
@@ -71,10 +83,11 @@ class MainModel {
             let newItem = Item(context: databaseManager.getContext())
             newItem.hardcodedAnswer = answer
             newItem.date = Date().timeIntervalSince1970
-
+            
             databaseManager.addItem(newItem)
         }
     }
+    
     
     private func checkRepetition(at str: String) -> Bool {
         return databaseManager.checkRepetiton(at: str)

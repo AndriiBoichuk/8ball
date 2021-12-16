@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import RxSwift
+import RxCocoa
 
 class SettingsViewController: UIViewController {
     
@@ -15,15 +17,18 @@ class SettingsViewController: UIViewController {
     private let answerTextField = UITextField()
     private let saveButtonView = UIView()
     private let saveButton = UIButton()
-    private let answersButtom = UIButton()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
+    
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadViews()
         loadNavBar()
+        
+        setupBindings()
         
         settingsViewModel.loadItems()
     }
@@ -37,12 +42,19 @@ class SettingsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupBindings() {
+        saveButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.saveTouched()
+            }) .disposed(by: disposeBag)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         turnOffButtonPressed()
     }
     
-    @objc func saveTouched() {
+    private func saveTouched() {
         if let answer = answerTextField.text {
             settingsViewModel.addAnswer(answer)
             saveButton.isEnabled = false
@@ -115,7 +127,6 @@ private extension SettingsViewController {
             make.width.equalTo(77)
             make.height.equalTo(55)
         }
-        saveButton.addTarget(self, action: #selector(saveTouched), for: .touchUpInside)
         saveButton.setTitle(L10n.SaveButton.title, for: .normal)
         saveButton.setTitleColor(.black, for: .normal)
         saveButton.titleLabel?.font = UIFont(name: Constants.fontName, size: 18)
