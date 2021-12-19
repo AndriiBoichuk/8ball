@@ -31,6 +31,7 @@
 		7BB066A826FDAAAF008FB062 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB066A726FDAAAF008FB062 /* MainViewController.swift */; };
 		7BB066AD26FDAAB1008FB062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BB066AC26FDAAB1008FB062 /* Assets.xcassets */; };
 		7BB066B026FDAAB1008FB062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BB066AE26FDAAB1008FB062 /* LaunchScreen.storyboard */; };
+		7BCA75B9276F90C700722DE3 /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75B8276F90C700722DE3 /* FlowCoordinator.swift */; };
 		7BD7E2A4271602E400709514 /* AnswersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD7E2A3271602E400709514 /* AnswersTableViewController.swift */; };
 		7BEFEFB8270D98C6006DAAA6 /* AnswerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFEFB7270D98C6006DAAA6 /* AnswerData.swift */; };
 		7BEFEFBA270D9AE3006DAAA6 /* AnswerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFEFB9270D9AE3006DAAA6 /* AnswerManager.swift */; };
@@ -66,6 +67,7 @@
 		7BB066AC26FDAAB1008FB062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BB066AF26FDAAB1008FB062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BB066B126FDAAB1008FB062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BCA75B8276F90C700722DE3 /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
 		7BD7E2A3271602E400709514 /* AnswersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersTableViewController.swift; sourceTree = "<group>"; };
 		7BEFEFB7270D98C6006DAAA6 /* AnswerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerData.swift; sourceTree = "<group>"; };
 		7BEFEFB9270D9AE3006DAAA6 /* AnswerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerManager.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		7B90E1AD27454CDE00C38EE0 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				7BCA75B8276F90C700722DE3 /* FlowCoordinator.swift */,
 				7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */,
 				7B90E1AE27454CE600C38EE0 /* Main */,
 				7B90E1AF27454CEE00C38EE0 /* Settings */,
@@ -404,6 +407,7 @@
 				7B017E41270CC9CF00DA95C3 /* 8-ball.xcdatamodeld in Sources */,
 				7B7653EB27413F5800D472C7 /* AnswersViewModel.swift in Sources */,
 				7B762B722740043E0097DF54 /* MainModel.swift in Sources */,
+				7BCA75B9276F90C700722DE3 /* FlowCoordinator.swift in Sources */,
 				7BB066A626FDAAAF008FB062 /* SceneDelegate.swift in Sources */,
 				7B1AC0E9274D320500F58290 /* KeychainManager.swift in Sources */,
 				7B7653E627412E1D00D472C7 /* SettingsViewModel.swift in Sources */,

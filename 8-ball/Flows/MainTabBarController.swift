@@ -8,6 +8,8 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+    
+    var coordinator: MainCoordinator?
 
     private let dbManager = DBManager()
     
@@ -20,19 +22,13 @@ class MainTabBarController: UITabBarController {
     }
     
     private func createMainNC() -> UINavigationController {
-        let connectionManager = ConnectionManager()
-        let answerManager = AnswerManager()
-
-        let keychainManager = KeychainManager()
-        
-        let model = MainModel(dbManager, connectionManager, answerManager, keychainManager)
-        
-        let viewModel = MainViewModel(model)
-        
-        let rootViewController = MainViewController(viewModel)
-        let navigationController = UINavigationController(rootViewController: rootViewController)
+        let navigationController = UINavigationController()
         
         navigationController.tabBarItem = UITabBarItem(title: L10n.Tabbar.title1, image: UIImage(systemName: L10n.Image.tabIcon1), tag: 0)
+        
+        coordinator = MainCoordinator(navigationController: navigationController)
+        
+        coordinator?.start()
         
         return navigationController
     }

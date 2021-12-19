@@ -88,7 +88,6 @@ class MainModel {
         }
     }
     
-    
     private func checkRepetition(at str: String) -> Bool {
         return databaseManager.checkRepetiton(at: str)
     }

@@ -14,6 +14,8 @@ class SettingsViewController: UIViewController {
     
     private let settingsViewModel: SettingsViewModel
     
+    public var coordinator: MainCoordinator?
+    
     private let answerTextField = UITextField()
     private let saveButtonView = UIView()
     private let saveButton = UIButton()

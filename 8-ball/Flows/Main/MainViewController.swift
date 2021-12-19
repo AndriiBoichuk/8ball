@@ -14,6 +14,8 @@ class MainViewController: UIViewController {
     
     private let mainViewModel: MainViewModel
     
+    public var coordinator: MainCoordinator?
+    
     private let titleLabel = UILabel()
     private let imageView = UIImageView()
     private let counterLabel = UILabel()
@@ -105,15 +107,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func settingsButtonTapped() {
-        navigationController?.pushViewController(getSettingsVC(), animated: true)
-    }
-    
-    private func getSettingsVC() -> SettingsViewController {
-        let dbManager = mainViewModel.mainModel.getDBManager()
-        let model = SettingsModel(dbManager)
-        let viewModel = SettingsViewModel(model)
-        let settingsVC = SettingsViewController(viewModel)
-        return settingsVC
+        coordinator?.showSettings()
     }
     
 }
