@@ -11,7 +11,6 @@
 		7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18314F27036E3C0002DC27 /* SettingsViewController.swift */; };
 		7B1AC0E9274D320500F58290 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1AC0E8274D320500F58290 /* KeychainManager.swift */; };
 		7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E95A02706D6B200C3B8DD /* Constants.swift */; };
-		7B3AAB272750CFC0001C6DE4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */; };
 		7B472148271B4BD500D1D41F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B472147271B4BD500D1D41F /* Reachability.swift */; };
 		7B559271273C5542000CD949 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B55926F273C5542000CD949 /* Localizable.strings */; };
 		7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E2D927359A4900AAC475 /* ConnectionManager.swift */; };
@@ -31,7 +30,11 @@
 		7BB066A826FDAAAF008FB062 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB066A726FDAAAF008FB062 /* MainViewController.swift */; };
 		7BB066AD26FDAAB1008FB062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BB066AC26FDAAB1008FB062 /* Assets.xcassets */; };
 		7BB066B026FDAAB1008FB062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BB066AE26FDAAB1008FB062 /* LaunchScreen.storyboard */; };
-		7BCA75B9276F90C700722DE3 /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75B8276F90C700722DE3 /* FlowCoordinator.swift */; };
+		7BCA75BD2770BCB400722DE3 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75BC2770BCB400722DE3 /* AppCoordinator.swift */; };
+		7BCA75C02770C06500722DE3 /* SettingsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75BF2770C06500722DE3 /* SettingsFlowCoordinator.swift */; };
+		7BCA75C22770C07400722DE3 /* AnswersFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75C12770C07400722DE3 /* AnswersFlowCoordinator.swift */; };
+		7BCA75C42770C0D300722DE3 /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75C32770C0D300722DE3 /* MainFlowCoordinator.swift */; };
+		7BCA75C62770DA0400722DE3 /* NavigationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA75C52770DA0400722DE3 /* NavigationNode.swift */; };
 		7BD7E2A4271602E400709514 /* AnswersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD7E2A3271602E400709514 /* AnswersTableViewController.swift */; };
 		7BEFEFB8270D98C6006DAAA6 /* AnswerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFEFB7270D98C6006DAAA6 /* AnswerData.swift */; };
 		7BEFEFBA270D9AE3006DAAA6 /* AnswerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFEFB9270D9AE3006DAAA6 /* AnswerManager.swift */; };
@@ -45,7 +48,6 @@
 		7B1AC0E8274D320500F58290 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		7B29FA97273C3A78008E5E4F /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		7B2E95A02706D6B200C3B8DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		7B472147271B4BD500D1D41F /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7B559270273C5542000CD949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7B71E2D927359A4900AAC475 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -67,7 +69,11 @@
 		7BB066AC26FDAAB1008FB062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BB066AF26FDAAB1008FB062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BB066B126FDAAB1008FB062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7BCA75B8276F90C700722DE3 /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
+		7BCA75BC2770BCB400722DE3 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		7BCA75BF2770C06500722DE3 /* SettingsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFlowCoordinator.swift; sourceTree = "<group>"; };
+		7BCA75C12770C07400722DE3 /* AnswersFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersFlowCoordinator.swift; sourceTree = "<group>"; };
+		7BCA75C32770C0D300722DE3 /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinator.swift; sourceTree = "<group>"; };
+		7BCA75C52770DA0400722DE3 /* NavigationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationNode.swift; sourceTree = "<group>"; };
 		7BD7E2A3271602E400709514 /* AnswersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersTableViewController.swift; sourceTree = "<group>"; };
 		7BEFEFB7270D98C6006DAAA6 /* AnswerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerData.swift; sourceTree = "<group>"; };
 		7BEFEFB9270D9AE3006DAAA6 /* AnswerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerManager.swift; sourceTree = "<group>"; };
@@ -119,8 +125,6 @@
 		7B90E1AD27454CDE00C38EE0 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				7BCA75B8276F90C700722DE3 /* FlowCoordinator.swift */,
-				7B3AAB262750CFC0001C6DE4 /* MainTabBarController.swift */,
 				7B90E1AE27454CE600C38EE0 /* Main */,
 				7B90E1AF27454CEE00C38EE0 /* Settings */,
 				7B90E1B027454CF500C38EE0 /* Answers */,
@@ -191,6 +195,7 @@
 		7BB066A226FDAAAF008FB062 /* 8-ball */ = {
 			isa = PBXGroup;
 			children = (
+				7BCA75BE2770C05000722DE3 /* Coordinators */,
 				7B90E1AD27454CDE00C38EE0 /* Flows */,
 				7BB066B926FDAE1C008FB062 /* Model */,
 				7B90E1B227455C3F00C38EE0 /* Managers */,
@@ -198,6 +203,7 @@
 				7B472146271B4B7E00D1D41F /* SupportingFiles */,
 				7BB066AE26FDAAB1008FB062 /* LaunchScreen.storyboard */,
 				7BB066B126FDAAB1008FB062 /* Info.plist */,
+				7BCA75C52770DA0400722DE3 /* NavigationNode.swift */,
 			);
 			path = "8-ball";
 			sourceTree = "<group>";
@@ -209,6 +215,17 @@
 				7B017E3F270CC9CF00DA95C3 /* 8-ball.xcdatamodeld */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7BCA75BE2770C05000722DE3 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				7BCA75BC2770BCB400722DE3 /* AppCoordinator.swift */,
+				7BCA75BF2770C06500722DE3 /* SettingsFlowCoordinator.swift */,
+				7BCA75C12770C07400722DE3 /* AnswersFlowCoordinator.swift */,
+				7BCA75C32770C0D300722DE3 /* MainFlowCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		7BE52039273ED042006FE68F /* Resource */ = {
@@ -391,9 +408,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B2E95A12706D6B200C3B8DD /* Constants.swift in Sources */,
+				7BCA75C62770DA0400722DE3 /* NavigationNode.swift in Sources */,
 				7B7653ED2741425A00D472C7 /* AnswersModel.swift in Sources */,
-				7B3AAB272750CFC0001C6DE4 /* MainTabBarController.swift in Sources */,
+				7BCA75BD2770BCB400722DE3 /* AppCoordinator.swift in Sources */,
 				7BEFEFBA270D9AE3006DAAA6 /* AnswerManager.swift in Sources */,
+				7BCA75C02770C06500722DE3 /* SettingsFlowCoordinator.swift in Sources */,
 				7BB066A826FDAAAF008FB062 /* MainViewController.swift in Sources */,
 				7B7653E4274029E500D472C7 /* PresentableAnswer.swift in Sources */,
 				7B7653E22740284F00D472C7 /* Answer.swift in Sources */,
@@ -407,13 +426,14 @@
 				7B017E41270CC9CF00DA95C3 /* 8-ball.xcdatamodeld in Sources */,
 				7B7653EB27413F5800D472C7 /* AnswersViewModel.swift in Sources */,
 				7B762B722740043E0097DF54 /* MainModel.swift in Sources */,
-				7BCA75B9276F90C700722DE3 /* FlowCoordinator.swift in Sources */,
 				7BB066A626FDAAAF008FB062 /* SceneDelegate.swift in Sources */,
 				7B1AC0E9274D320500F58290 /* KeychainManager.swift in Sources */,
+				7BCA75C22770C07400722DE3 /* AnswersFlowCoordinator.swift in Sources */,
 				7B7653E627412E1D00D472C7 /* SettingsViewModel.swift in Sources */,
 				7B472148271B4BD500D1D41F /* Reachability.swift in Sources */,
 				7B71E2DA27359A4900AAC475 /* ConnectionManager.swift in Sources */,
 				7B18315027036E3C0002DC27 /* SettingsViewController.swift in Sources */,
+				7BCA75C42770C0D300722DE3 /* MainFlowCoordinator.swift in Sources */,
 				7B762B70274004310097DF54 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

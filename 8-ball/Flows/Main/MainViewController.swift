@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     
     private let mainViewModel: MainViewModel
     
-    public var coordinator: MainCoordinator?
+    public var coordinator: MainFlowCoordinator?
     
     private let titleLabel = UILabel()
     private let imageView = UIImageView()

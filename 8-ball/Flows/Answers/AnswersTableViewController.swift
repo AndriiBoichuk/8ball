@@ -14,6 +14,8 @@ class AnswersTableViewController: UIViewController {
 
     private let tableView = UITableView()
     
+    public var coordinator: AnswersFlowCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
