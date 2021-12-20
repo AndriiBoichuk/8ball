@@ -2,59 +2,9 @@
 
 8 ball - shake the phone and get a random answer.
 
-## Flow Coordinator
+## Dependencies
 
-### Protocol
-
-``` bash
-protocol Coordinator {
-    var childCoordinators: [Coordinator] { get set }
-    var navigationController: UINavigationController { get set }
-
-    func start()
-}
-```
-
-### Class
-
-``` bash
-class MainCoordinator: Coordinator {
-    var childCoordinators = [Coordinator]()
-    var navigationController: UINavigationController
-    private let dbManager: DBManager
-
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-        self.dbManager = DBManager()
-    }
-
-    func start() {
-        // Showing MainViewController
-    }
-    
-    func showSettings() {
-        // Showing SettingsViewController
-    }
-}
-
-```
-
-## Initialize MainFlowCoordinator
-
-### MainTabBarController
-
-``` bash
-var coordinator: MainCoordinator?
-
-...
-
-    private func createMainNC() -> UINavigationController {
-        let navigationController = UINavigationController()
-        
-        coordinator = MainCoordinator(navigationController: navigationController)
-        
-        coordinator?.start()
-        
-        return navigationController
-    }
-```
+- SwiftLint - A utility from Realm developers to automatically check Swift code
+- SwiftGen - A utility that allows you to generate Swift code to access various Xcode project resources
+- RxSwift, RxCocoa - Reactive Programming in Swift
+- SnapKit - a lightweight DSL to make Auto Layout and constraints a breeze to work with
