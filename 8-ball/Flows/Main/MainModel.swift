@@ -9,7 +9,7 @@ import Foundation
 import KeychainSwift
 import RxSwift
 
-class MainModel {
+class MainModel: NavigationNode {
     
     private let keychainManager: KeychainManager
     private let databaseManager: DBManager
@@ -18,11 +18,16 @@ class MainModel {
     
     private let disposeBag = DisposeBag()
     
-    init(_ dbManager: DBManager, _ connectionManager: ConnectionManager, _ answerManager: AnswerManager, _ keychainManger: KeychainManager) {
+    init(_ dbManager: DBManager, _ connectionManager: ConnectionManager, _ answerManager: AnswerManager, _ keychainManger: KeychainManager, _ parent: NavigationNode) {
         self.databaseManager = dbManager
         self.connectionManager = connectionManager
         self.answerManager = answerManager
         self.keychainManager = keychainManger
+        super.init(parent: parent)
+    }
+    
+    func presentSettings() {
+        raise(event: MainEvent.settings)
     }
     
     func getDBManager() -> DBManager {

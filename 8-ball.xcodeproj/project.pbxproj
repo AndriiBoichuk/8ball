@@ -195,6 +195,7 @@
 		7BB066A226FDAAAF008FB062 /* 8-ball */ = {
 			isa = PBXGroup;
 			children = (
+				7BCA75C52770DA0400722DE3 /* NavigationNode.swift */,
 				7BCA75BE2770C05000722DE3 /* Coordinators */,
 				7B90E1AD27454CDE00C38EE0 /* Flows */,
 				7BB066B926FDAE1C008FB062 /* Model */,
@@ -203,7 +204,6 @@
 				7B472146271B4B7E00D1D41F /* SupportingFiles */,
 				7BB066AE26FDAAB1008FB062 /* LaunchScreen.storyboard */,
 				7BB066B126FDAAB1008FB062 /* Info.plist */,
-				7BCA75C52770DA0400722DE3 /* NavigationNode.swift */,
 			);
 			path = "8-ball";
 			sourceTree = "<group>";

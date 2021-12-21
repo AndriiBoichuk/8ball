@@ -15,29 +15,30 @@ protocol FlowCoordinator: AnyObject {
     func createFlow() -> UIViewController
 }
 
-class AppCoordinator: NavigationNode, FlowCoordinator {
+class AppCoordinator: NavigationNode {
     
-    weak var containerViewController: UIViewController?
     private let dbManager = DBManager()
+    private let window: UIWindow
     
-    init() {
+    init(window: UIWindow) {
+        self.window = window
         super.init(parent: nil)
     }
     
-    func createFlow() -> UIViewController {
+    func startFlow() {
         let mainFC = MainFlowCoordinator(parent: self, dbManager: dbManager)
         let mainVC = mainFC.createFlow()
-        mainFC.containerViewController = mainVC
         
         let answersFC = AnswersFlowCoordinator(parent: self, dbManager: dbManager)
         let answersVC = answersFC.createFlow()
-        answersFC.containerViewController = answersVC
         
         let tabBarVC = UITabBarController()
         tabBarVC.viewControllers = [UINavigationController(rootViewController: mainVC), answersVC]
         tabBarVC.tabBar.tintColor = .black
         
-        return tabBarVC
+        window.rootViewController = tabBarVC
+        window.makeKeyAndVisible()
+        window.overrideUserInterfaceStyle = .light
     }
     
 }

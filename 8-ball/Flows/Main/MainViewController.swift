@@ -14,8 +14,6 @@ class MainViewController: UIViewController {
     
     private let mainViewModel: MainViewModel
     
-    public var coordinator: MainFlowCoordinator?
-    
     private let titleLabel = UILabel()
     private let imageView = UIImageView()
     private let counterLabel = UILabel()
@@ -107,7 +105,8 @@ class MainViewController: UIViewController {
     }
     
     @objc func settingsButtonTapped() {
-        coordinator?.showSettings()
+        print("OK")
+        mainViewModel.presentSettings()
     }
     
 }

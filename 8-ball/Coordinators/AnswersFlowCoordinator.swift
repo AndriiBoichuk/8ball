@@ -23,9 +23,9 @@ class AnswersFlowCoordinator: NavigationNode, FlowCoordinator {
         let answersTVC = AnswersTableViewController(viewModel)
         
         answersTVC.tabBarItem = UITabBarItem(title: L10n.Tabbar.title2, image: UIImage(systemName: L10n.Image.tabIcon2), tag: 1)
+        containerViewController = answersTVC
         
         return answersTVC
     }
     
 }
-

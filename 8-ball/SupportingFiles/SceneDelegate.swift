@@ -15,13 +15,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let appCoordinator = AppCoordinator()
-        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = appCoordinator.createFlow()
-        window?.makeKeyAndVisible()
-        window?.overrideUserInterfaceStyle = .light
+        
+        let appCoordinator = AppCoordinator(window: window!)
+        appCoordinator.startFlow()
     }
     
 }

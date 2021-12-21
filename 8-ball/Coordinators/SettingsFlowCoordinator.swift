@@ -21,7 +21,7 @@ class SettingsFlowCoordinator: NavigationNode, FlowCoordinator {
         let model = SettingsModel(dbManager)
         let viewModel = SettingsViewModel(model)
         let settingsVC = SettingsViewController(viewModel)
-        settingsVC.coordinator = self
+        containerViewController = settingsVC
         
         return settingsVC
     }
