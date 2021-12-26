@@ -17,9 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = MainTabBarController()
-        window?.makeKeyAndVisible()
-        window?.overrideUserInterfaceStyle = .light
+        
+        let appCoordinator = AppCoordinator(window: window!)
+        appCoordinator.startFlow()
     }
     
 }

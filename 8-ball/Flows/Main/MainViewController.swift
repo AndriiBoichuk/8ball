@@ -105,15 +105,8 @@ class MainViewController: UIViewController {
     }
     
     @objc func settingsButtonTapped() {
-        navigationController?.pushViewController(getSettingsVC(), animated: true)
-    }
-    
-    private func getSettingsVC() -> SettingsViewController {
-        let dbManager = mainViewModel.mainModel.getDBManager()
-        let model = SettingsModel(dbManager)
-        let viewModel = SettingsViewModel(model)
-        let settingsVC = SettingsViewController(viewModel)
-        return settingsVC
+        print("OK")
+        mainViewModel.presentSettings()
     }
     
 }

@@ -18,6 +18,10 @@ class MainViewModel {
         self.mainModel = model
     }
     
+    func presentSettings() {
+        mainModel.presentSettings()
+    }
+    
     func getPresentableAnswer() -> Observable<PresentableAnswer> {
         return mainModel.getAnswer().map {$0.toPresentableAnswer()}
     }
